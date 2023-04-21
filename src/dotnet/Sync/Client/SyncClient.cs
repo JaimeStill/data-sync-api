@@ -6,22 +6,20 @@ public abstract class SyncClient : ISyncClient
 {
     protected readonly HubConnection connection;
     protected readonly string endpoint;
-    protected CancellationToken token;
     
     protected List<string> Channels { get; set; }
-    public SyncClientStatus Status => new(connection.ConnectionId, connection.State.ToString());
+    public SyncClientStatus Status => new(connection.ConnectionId, connection.State);
 
-    public SyncAction OnCreate { get; protected set; }
+    public SyncAction OnAdd { get; protected set; }
     public SyncAction OnUpdate { get; protected set; }
     public SyncAction OnSync { get; protected set; }
-    public SyncAction OnDelete { get; protected set; }
+    public SyncAction OnRemove { get; protected set; }
 
     public SyncClient(string endpoint)
     {
         this.endpoint = endpoint;
 
         Channels = new();
-        token = new();
 
         Console.WriteLine($"Building Sync connection at {endpoint}");
         connection = BuildHubConnection(endpoint);
@@ -30,7 +28,7 @@ public abstract class SyncClient : ISyncClient
         InitializeActions();
     }
 
-    public async Task Connect()
+    public async Task Connect(CancellationToken token = new())
     {
         if (connection.State != HubConnectionState.Connected)
         {
@@ -50,7 +48,7 @@ public abstract class SyncClient : ISyncClient
                 {
                     Console.WriteLine($"Failed to connect to {endpoint}");
                     Console.WriteLine(ex.Message);
-                    await Task.Delay(5000);
+                    await Task.Delay(5000, token);
                 }
             }
         }
@@ -58,6 +56,9 @@ public abstract class SyncClient : ISyncClient
 
     public async Task Join(string name)
     {
+        if (connection.State != HubConnectionState.Connected)
+            await Connect();
+
         if (Channels.Contains(name))
             Console.WriteLine($"Already connected to channel {name}");
         else
@@ -82,7 +83,7 @@ public abstract class SyncClient : ISyncClient
             Console.WriteLine($"Not connected to channel {name}");
     }
 
-    public async Task Create<T>(ISyncMessage<T> message) =>
+    public async Task Add<T>(ISyncMessage<T> message) =>
         await connection.InvokeAsync("SendCreate", message);
 
     public async Task Update<T>(ISyncMessage<T> message) =>
@@ -91,7 +92,7 @@ public abstract class SyncClient : ISyncClient
     public async Task Sync<T>(ISyncMessage<T> message) =>
         await connection.InvokeAsync("SendSync", message);
 
-    public async Task Delete<T>(ISyncMessage<T> message) =>
+    public async Task Remove<T>(ISyncMessage<T> message) =>
         await connection.InvokeAsync("SendDelete", message);
 
     protected virtual HubConnection BuildHubConnection(string endpoint) =>
@@ -110,17 +111,17 @@ public abstract class SyncClient : ISyncClient
     }
 
     [MemberNotNull(
-        nameof(OnCreate),
+        nameof(OnAdd),
         nameof(OnUpdate),
         nameof(OnSync),
-        nameof(OnDelete)
+        nameof(OnRemove)
     )]
     protected void InitializeActions()
     {
-        OnCreate = new("Create", connection);
+        OnAdd = new("Add", connection);
         OnUpdate = new("Update", connection);
         OnSync = new("Sync", connection);
-        OnDelete = new("Delete", connection);
+        OnRemove = new("Remove", connection);
     }
 
     public async ValueTask DisposeAsync()
@@ -134,10 +135,10 @@ public abstract class SyncClient : ISyncClient
 
     protected virtual void DisposeEvents()
     {
-        OnCreate.Dispose();
+        OnAdd.Dispose();
         OnUpdate.Dispose();
         OnSync.Dispose();
-        OnDelete.Dispose();
+        OnRemove.Dispose();
     }
 
     protected virtual async ValueTask DisposeConnection()

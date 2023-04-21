@@ -1,6 +1,7 @@
 import {
     HubConnection,
     HubConnectionBuilder,
+    HubConnectionState,
     LogLevel
 } from '@microsoft/signalr';
 
@@ -13,12 +14,12 @@ export abstract class SyncClient implements ISyncClient {
     protected channels: string[] = [];
 
     connected: boolean = false;
-    state = (): string => this.client.state;
+    state = (): HubConnectionState => this.client.state;
 
-    onCreate!: SyncAction;
+    onAdd!: SyncAction;
     onUpdate!: SyncAction;
     onSync!: SyncAction;
-    onDelete!: SyncAction;
+    onRemove!: SyncAction;
 
     protected buildHubConnection = (endpoint: string): HubConnection =>
         new HubConnectionBuilder()
@@ -35,10 +36,10 @@ export abstract class SyncClient implements ISyncClient {
             await this.connect();
         });
 
-        this.onCreate = new SyncAction("Create", this.client);
-        this.onUpdate = new SyncAction("Update", this.client);
-        this.onSync = new SyncAction("Sync", this.client);
-        this.onDelete = new SyncAction("Delete", this.client);
+        this.onAdd = new SyncAction("add", this.client);
+        this.onUpdate = new SyncAction("update", this.client);
+        this.onSync = new SyncAction("sync", this.client);
+        this.onRemove = new SyncAction("remove", this.client);
     }
 
     constructor(public endpoint: string) {
@@ -68,7 +69,7 @@ export abstract class SyncClient implements ISyncClient {
         }
     }
 
-    async create<T>(message: ISyncMessage<T>) {
+    async add<T>(message: ISyncMessage<T>) {
         await this.client.invoke('sendCreate', message);
     }
 
@@ -80,7 +81,7 @@ export abstract class SyncClient implements ISyncClient {
         await this.client.invoke('sendSync', message);
     }
 
-    async delete<T>(message: ISyncMessage<T>) {
+    async remove<T>(message: ISyncMessage<T>) {
         await this.client.invoke('sendDelete', message);
     }
 }

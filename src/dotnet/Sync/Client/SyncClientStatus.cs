@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.SignalR.Client;
+
 namespace Sync.Client;
 public class SyncClientStatus
 {
     public string? ConnectionId { get; set; }
-    public string State { get; set; }
+    public HubConnectionState State { get; set; }
 
-    public SyncClientStatus(string? connectionId, string state)
+    public SyncClientStatus(string? connectionId, HubConnectionState state)
     {
         ConnectionId = connectionId;
         State = state;

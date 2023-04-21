@@ -1,8 +1,8 @@
 namespace Sync;
 public enum ActionType
 {
-    Create,
+    Add,
     Update,
     Sync,
-    Delete
+    Remove
 }

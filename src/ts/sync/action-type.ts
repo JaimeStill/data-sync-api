@@ -1,6 +1,6 @@
 export enum ActionType {
-    Create,
+    Add,
     Update,
     Sync,
-    Delete
+    Remove
 }

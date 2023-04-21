@@ -78,13 +78,13 @@ public abstract class SyncHub : Hub<ISyncHub>
 
     public async Task SendCreate<T>(ISyncMessage<T> message)
     {
-        message.Action = ActionType.Create;
+        message.Action = ActionType.Add;
         
         LogAction(message);
 
         await Clients
             .OthersInGroup(message.Channel)
-            .Create(message);
+            .Add(message);
     }
 
     public async Task SendUpdate<T>(ISyncMessage<T> message)
@@ -95,7 +95,7 @@ public abstract class SyncHub : Hub<ISyncHub>
 
         await Clients
             .OthersInGroup(message.Channel)
-            .Create(message);
+            .Add(message);
     }
 
     public async Task SendSync<T>(ISyncMessage<T> message)
@@ -111,12 +111,12 @@ public abstract class SyncHub : Hub<ISyncHub>
 
     public async Task SendDelete<T>(ISyncMessage<T> message)
     {
-        message.Action = ActionType.Delete;
+        message.Action = ActionType.Remove;
 
         LogAction(message);
 
         await Clients
             .OthersInGroup(message.Channel)
-            .Create(message);
+            .Add(message);
     }
 }
