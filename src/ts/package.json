@@ -1,0 +1,19 @@
+{
+  "name": "sync",
+  "version": "0.0.1",
+  "description": "Sync API client for TypeScript",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Jaime Still",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/uuid": "^9.0.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@microsoft/signalr": "^7.0.5",
+    "uuid": "^9.0.0"
+  }
+}
