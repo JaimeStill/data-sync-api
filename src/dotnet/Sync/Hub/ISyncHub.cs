@@ -1,8 +1,8 @@
 namespace Sync.Hub;
-public interface ISyncHub
+public interface ISyncHub<T>
 {
-    Task Add<T>(ISyncMessage<T> message);
-    Task Update<T>(ISyncMessage<T> message);
-    Task Sync<T>(ISyncMessage<T> message);
-    Task Remove<T>(ISyncMessage<T> message);
+    Task Add(ISyncMessage<T> message);
+    Task Update(ISyncMessage<T> message);
+    Task Sync(ISyncMessage<T> message);
+    Task Remove(ISyncMessage<T> message);
 }

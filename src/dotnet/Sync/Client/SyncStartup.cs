@@ -2,8 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Sync.Client;
-public abstract class SyncStartup<T> : BackgroundService
-    where T : SyncClient
+public abstract class SyncStartup<C, T> : BackgroundService
+    where C : SyncClient<T>
 {
     private readonly IServiceProvider provider;
     private readonly IHostApplicationLifetime lifetime;
@@ -24,10 +24,9 @@ public abstract class SyncStartup<T> : BackgroundService
             await source.Task.ConfigureAwait(false);
             using IServiceScope scope = provider.CreateScope();
 
-            T client = scope.ServiceProvider.GetRequiredService<T>();
-
-            if (client is not null)
-                await client.Connect(token);
+            C client = scope.ServiceProvider.GetRequiredService<C>();
+            
+            await client.Connect(token);
         }
         catch when (token.IsCancellationRequested)
         {

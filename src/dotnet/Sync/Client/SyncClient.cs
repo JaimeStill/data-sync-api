@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Sync.Client;
-public abstract class SyncClient : ISyncClient
+public abstract class SyncClient<T> : ISyncClient<T>
 {
     protected readonly HubConnection connection;
     protected readonly string endpoint;
@@ -38,6 +38,8 @@ public abstract class SyncClient : ISyncClient
                 {
                     Console.WriteLine($"Connecting to {endpoint}");
                     await connection.StartAsync(token);
+                    Console.WriteLine($"Now listening on {endpoint}");
+                    await Join("app.models.proposal");
                     return;
                 }
                 catch when (token.IsCancellationRequested)
@@ -83,16 +85,16 @@ public abstract class SyncClient : ISyncClient
             Console.WriteLine($"Not connected to channel {name}");
     }
 
-    public async Task Add<T>(ISyncMessage<T> message) =>
+    public async Task Add(ISyncMessage<T> message) =>
         await connection.InvokeAsync("SendCreate", message);
 
-    public async Task Update<T>(ISyncMessage<T> message) =>
+    public async Task Update(ISyncMessage<T> message) =>
         await connection.InvokeAsync("SendUpdate", message);
 
-    public async Task Sync<T>(ISyncMessage<T> message) =>
+    public async Task Sync(ISyncMessage<T> message) =>
         await connection.InvokeAsync("SendSync", message);
 
-    public async Task Remove<T>(ISyncMessage<T> message) =>
+    public async Task Remove(ISyncMessage<T> message) =>
         await connection.InvokeAsync("SendDelete", message);
 
     protected virtual HubConnection BuildHubConnection(string endpoint) =>

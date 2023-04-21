@@ -1,7 +1,8 @@
+using Common.Schema;
 using Sync.Client;
 
-namespace App.Services;
-public class AppSyncStartup : SyncStartup<AppSyncClient>
+namespace Service.Services;
+public class AppSyncStartup : SyncStartup<AppSyncClient, IContract>
 {
     public AppSyncStartup(IServiceProvider provider, IHostApplicationLifetime lifetime) : base(provider, lifetime) { }
 }

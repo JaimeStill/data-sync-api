@@ -9,7 +9,7 @@ import { ISyncClient } from './i-sync-client';
 import { ISyncMessage } from './i-sync-message';
 import { SyncAction } from './sync-action';
 
-export abstract class SyncClient implements ISyncClient {
+export abstract class SyncClient<T> implements ISyncClient<T> {
     protected client!: HubConnection;
     protected channels: string[] = [];
 
@@ -69,19 +69,19 @@ export abstract class SyncClient implements ISyncClient {
         }
     }
 
-    async add<T>(message: ISyncMessage<T>) {
+    async add(message: ISyncMessage<T>) {
         await this.client.invoke('sendCreate', message);
     }
 
-    async update<T>(message: ISyncMessage<T>) {
+    async update(message: ISyncMessage<T>) {
         await this.client.invoke('sendUpdate', message);
     }
 
-    async sync<T>(message: ISyncMessage<T>) {
+    async sync(message: ISyncMessage<T>) {
         await this.client.invoke('sendSync', message);
     }
 
-    async remove<T>(message: ISyncMessage<T>) {
+    async remove(message: ISyncMessage<T>) {
         await this.client.invoke('sendDelete', message);
     }
 }

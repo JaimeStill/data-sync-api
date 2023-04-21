@@ -1,5 +1,5 @@
 namespace Common.Schema;
-public abstract class Entity
+public abstract class Entity : IContract
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;

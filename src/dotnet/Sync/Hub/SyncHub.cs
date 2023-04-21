@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.SignalR;
 
 namespace Sync.Hub;
-public abstract class SyncHub : Hub<ISyncHub>
+public abstract class SyncHub<T> : Hub<ISyncHub<T>>
 {
     public List<Channel> Channels { get; private set; }
 
@@ -70,13 +70,13 @@ public abstract class SyncHub : Hub<ISyncHub>
         await RemoveFromChannel(name, Context.ConnectionId, Groups);
     }
 
-    static void LogAction<T>(ISyncMessage<T> message)
+    static void LogAction(ISyncMessage<T> message)
     {
         Console.WriteLine($"{message.Action} message received: {message.Message}");
         Console.WriteLine($"Message channel: {message.Channel}");
     }
 
-    public async Task SendCreate<T>(ISyncMessage<T> message)
+    public async Task SendCreate(ISyncMessage<T> message)
     {
         message.Action = ActionType.Add;
         
@@ -87,7 +87,7 @@ public abstract class SyncHub : Hub<ISyncHub>
             .Add(message);
     }
 
-    public async Task SendUpdate<T>(ISyncMessage<T> message)
+    public async Task SendUpdate(ISyncMessage<T> message)
     {
         message.Action = ActionType.Update;
 
@@ -98,7 +98,7 @@ public abstract class SyncHub : Hub<ISyncHub>
             .Add(message);
     }
 
-    public async Task SendSync<T>(ISyncMessage<T> message)
+    public async Task SendSync(ISyncMessage<T> message)
     {
         message.Action = ActionType.Sync;
 
@@ -109,7 +109,7 @@ public abstract class SyncHub : Hub<ISyncHub>
             .Sync(message);
     }
 
-    public async Task SendDelete<T>(ISyncMessage<T> message)
+    public async Task SendDelete(ISyncMessage<T> message)
     {
         message.Action = ActionType.Remove;
 

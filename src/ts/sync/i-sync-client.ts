@@ -2,7 +2,7 @@ import { HubConnectionState } from '@microsoft/signalr';
 import { SyncAction } from './sync-action';
 import { ISyncMessage } from './i-sync-message';
 
-export interface ISyncClient {
+export interface ISyncClient<T> {
     connected: boolean;
     endpoint: string;
     onAdd: SyncAction;
@@ -13,8 +13,8 @@ export interface ISyncClient {
     connect: () => Promise<void>;
     join: (name: string) => Promise<void>;
     leave: (name: string) => Promise<void>;
-    add: <T>(message: ISyncMessage<T>) => Promise<void>;
-    update: <T>(message: ISyncMessage<T>) => Promise<void>;
-    sync: <T>(message: ISyncMessage<T>) => Promise<void>;
-    remove: <T>(message: ISyncMessage<T>) => Promise<void>;
+    add: (message: ISyncMessage<T>) => Promise<void>;
+    update: (message: ISyncMessage<T>) => Promise<void>;
+    sync: (message: ISyncMessage<T>) => Promise<void>;
+    remove: (message: ISyncMessage<T>) => Promise<void>;
 }

@@ -2,10 +2,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using App.Data;
 using App.Hubs;
-using App.Services;
 using Common.Services;
 using Microsoft.EntityFrameworkCore;
-using Sync.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,8 +38,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 builder.Services.AddAppServices();
-builder.Services.AddSyncClient<AppSyncClient>();
-builder.Services.AddHostedService<AppSyncStartup>();
 
 var app = builder.Build();
 
