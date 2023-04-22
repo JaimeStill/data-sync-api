@@ -5,24 +5,20 @@ using Sync;
 using Sync.Hub;
 
 namespace Common.Services;
-public abstract class SyncService<T, S, Db> : EntityService<T, Db>
+public abstract class SyncService<T, H, Db> : EntityService<T, Db>
      where T : Entity
-     where S : SyncHub<IContract>
+     where H : SyncHub<T>
      where Db : DbContext
 {
-    protected IHubContext<S, ISyncHub<IContract>> sync;
-    protected string channel;
-    public SyncService(Db db, IHubContext<S, ISyncHub<IContract>> sync) : base(db)
+    protected IHubContext<H, ISyncHub<T>> sync;
+    public SyncService(Db db, IHubContext<H, ISyncHub<T>> sync) : base(db)
     {
         this.sync = sync;
-        channel = $"{typeof(T)}".ToLower();
-        Console.WriteLine($"Channel: {channel}");
     }
 
     protected override Func<T, Task> AfterAdd => async (T entity) =>
     {
-        SyncMessage<IContract> message = new(
-            channel,
+        SyncMessage<T> message = new(
             entity,
             ActionType.Add,
             $"{typeof(T)} successfully created"
@@ -30,14 +26,13 @@ public abstract class SyncService<T, S, Db> : EntityService<T, Db>
 
         await sync
             .Clients
-            .Group(channel)
+            .All
             .Add(message);
     };
 
     protected override Func<T, Task> AfterUpdate => async (T entity) =>
     {
-        SyncMessage<IContract> message = new(
-            channel,
+        SyncMessage<T> message = new(
             entity,
             ActionType.Update,
             $"{typeof(T)} successfully updated"
@@ -45,14 +40,13 @@ public abstract class SyncService<T, S, Db> : EntityService<T, Db>
 
         await sync
             .Clients
-            .Group(channel)
+            .All
             .Update(message);
     };
 
     protected override Func<T, Task> AfterRemove => async (T entity) =>
     {
-        SyncMessage<IContract> message = new(
-            channel,
+        SyncMessage<T> message = new(
             entity,
             ActionType.Update,
             $"{typeof(T)} successfully updated"
@@ -60,7 +54,7 @@ public abstract class SyncService<T, S, Db> : EntityService<T, Db>
 
         await sync
             .Clients
-            .Group(channel)
+            .All
             .Remove(message);
     };
 }

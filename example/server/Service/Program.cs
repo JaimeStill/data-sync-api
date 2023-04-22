@@ -1,6 +1,4 @@
-using Common.Schema;
-using Service.Services;
-using Sync.Client;
+using Service.Sync;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +16,7 @@ builder
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
-builder.Services.AddSyncClient<AppSyncClient, IContract>();
-builder.Services.AddHostedService<AppSyncStartup>();
+builder.Services.RegisterSyncClients();
 
 var app = builder.Build();
 

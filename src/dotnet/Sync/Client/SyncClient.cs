@@ -6,8 +6,7 @@ public abstract class SyncClient<T> : ISyncClient<T>
 {
     protected readonly HubConnection connection;
     protected readonly string endpoint;
-    
-    protected List<string> Channels { get; set; }
+
     public SyncClientStatus Status => new(connection.ConnectionId, connection.State);
 
     public SyncAction OnAdd { get; protected set; }
@@ -18,8 +17,6 @@ public abstract class SyncClient<T> : ISyncClient<T>
     public SyncClient(string endpoint)
     {
         this.endpoint = endpoint;
-
-        Channels = new();
 
         Console.WriteLine($"Building Sync connection at {endpoint}");
         connection = BuildHubConnection(endpoint);
@@ -39,7 +36,6 @@ public abstract class SyncClient<T> : ISyncClient<T>
                     Console.WriteLine($"Connecting to {endpoint}");
                     await connection.StartAsync(token);
                     Console.WriteLine($"Now listening on {endpoint}");
-                    await Join("app.models.proposal");
                     return;
                 }
                 catch when (token.IsCancellationRequested)
@@ -54,35 +50,6 @@ public abstract class SyncClient<T> : ISyncClient<T>
                 }
             }
         }
-    }
-
-    public async Task Join(string name)
-    {
-        if (connection.State != HubConnectionState.Connected)
-            await Connect();
-
-        if (Channels.Contains(name))
-            Console.WriteLine($"Already connected to channel {name}");
-        else
-        {
-            Console.WriteLine($"Joining channel {name}");
-            await connection.InvokeAsync("Join", name);
-            Channels.Add(name);
-            Console.WriteLine($"Channel {name} successfully joined");
-        }
-    }
-
-    public async Task Leave(string name)
-    {
-        if (Channels.Contains(name))
-        {
-            Console.WriteLine($"Leaving channel {name}");
-            await connection.InvokeAsync("Leave", name);
-            Channels.Remove(name);
-            Console.WriteLine($"Channel {name} successfully left");
-        }
-        else
-            Console.WriteLine($"Not connected to channel {name}");
     }
 
     public async Task Add(ISyncMessage<T> message) =>
@@ -147,9 +114,6 @@ public abstract class SyncClient<T> : ISyncClient<T>
     {
         if (connection is not null)
         {
-            foreach (string channel in Channels)
-                await Leave(channel);
-
             await connection
                 .DisposeAsync()
                 .ConfigureAwait(false);
