@@ -3,7 +3,7 @@ using Sync;
 using Sync.Client;
 
 namespace Service.Sync;
-public class ProposalClient : SyncClient<ProposalContract>
+public class ProposalClient : ApiSyncClient<ProposalContract>
 {
     static void WriteMessage(SyncMessage<ProposalContract> message) =>
         Console.WriteLine(message.Message);

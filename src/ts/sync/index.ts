@@ -1,5 +1,5 @@
-export * from './action-type';
-export * from './channel';
+export * from './api-sync-client';
+export * from './i-api-sync-client';
 export * from './i-sync-client';
 export * from './i-sync-message';
 export * from './sync-action';
