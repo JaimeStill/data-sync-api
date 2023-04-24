@@ -1,4 +1,5 @@
 using Contracts;
+using Contracts.Clients;
 using Sync.Client;
 
 namespace Service.Sync;

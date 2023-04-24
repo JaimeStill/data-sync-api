@@ -1,20 +1,30 @@
-using Contracts;
+using Microsoft.Extensions.Configuration;
 using Sync;
 using Sync.Client;
 
-namespace Service.Sync;
+namespace Contracts.Clients;
 public class ProposalClient : ApiSyncClient<ProposalContract>
 {
     static void WriteMessage(SyncMessage<ProposalContract> message) =>
         Console.WriteLine(message.Message);
 
-    public ProposalClient(IConfiguration config) : base(
-        config.GetValue<string>("Sync:Proposal") ?? "http://localhost:5001/sync/proposal/"
-    )
-    {
+    void Initialize()
+    {        
         OnAdd.Set<SyncMessage<ProposalContract>>(WriteMessage);
         OnUpdate.Set<SyncMessage<ProposalContract>>(WriteMessage);
         OnSync.Set<SyncMessage<ProposalContract>>(WriteMessage);
         OnRemove.Set<SyncMessage<ProposalContract>>(WriteMessage);
+    }
+
+    public ProposalClient(IConfiguration config) : base(
+        config.GetValue<string>("Sync:Proposal") ?? "http://localhost:5001/sync/proposal/"
+    )
+    {
+        Initialize();
+    }
+
+    public ProposalClient(string endpoint) : base(endpoint)
+    {
+        Initialize();
     }
 }
