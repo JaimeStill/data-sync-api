@@ -1,7 +1,7 @@
 using System.CommandLine;
 using Common.Cli;
 using Contracts;
-using Contracts.Clients;
+using Contracts.Sync;
 using Sync;
 
 namespace SyncCli.Commands;
@@ -23,7 +23,7 @@ public class ProposalListenerCommand : CliCommand
 
     static async Task Call(string endpoint)
     {
-        await using ProposalClient client = new(endpoint);
+        await using ProposalSync client = new(endpoint);
         await client.Connect();        
         Console.WriteLine("Press Ctrl + C to exit...");
 

@@ -2,8 +2,8 @@ using Microsoft.Extensions.Configuration;
 using Sync;
 using Sync.Client;
 
-namespace Contracts.Clients;
-public class ProposalClient : ApiSyncClient<ProposalContract>
+namespace Contracts.Sync;
+public class ProposalSync : ApiSyncClient<ProposalContract>
 {
     static void WriteMessage(SyncMessage<ProposalContract> message) =>
         Console.WriteLine(message.Message);
@@ -16,14 +16,14 @@ public class ProposalClient : ApiSyncClient<ProposalContract>
         OnRemove.Set<SyncMessage<ProposalContract>>(WriteMessage);
     }
 
-    public ProposalClient(IConfiguration config) : base(
+    public ProposalSync(IConfiguration config) : base(
         config.GetValue<string>("Sync:Proposal") ?? "http://localhost:5001/sync/proposal/"
     )
     {
         Initialize();
     }
 
-    public ProposalClient(string endpoint) : base(endpoint)
+    public ProposalSync(string endpoint) : base(endpoint)
     {
         Initialize();
     }
