@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug App",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "app-build",
+            "cwd": "${workspaceFolder}/example/server/App",
+            "program": "bin/Debug/net7.0/App.dll",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "name": "Debug Service",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "svc-build",
+            "cwd": "${workspaceFolder}/example/server/Service",
+            "program": "bin/Debug/net7.0/Service.dll",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
+    ]
+}

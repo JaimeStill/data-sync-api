@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Sync.Client;
 public abstract class ApiSyncClient<T> : SyncClient<T>, IApiSyncClient<T>
@@ -12,15 +11,6 @@ public abstract class ApiSyncClient<T> : SyncClient<T>, IApiSyncClient<T>
     {
         InitializeActions();
     }
-
-    public async Task Add(ISyncMessage<T> message) =>
-        await connection.InvokeAsync("SendAdd", message);
-
-    public async Task Update(ISyncMessage<T> message) =>
-        await connection.InvokeAsync("SendUpdate", message);
-
-    public async Task Remove(ISyncMessage<T> message) =>
-        await connection.InvokeAsync("SendRemove", message);
 
     [MemberNotNull(
         nameof(OnAdd),

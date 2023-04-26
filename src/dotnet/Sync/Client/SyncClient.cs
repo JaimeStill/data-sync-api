@@ -49,9 +49,6 @@ public abstract class SyncClient<T> : ISyncClient<T>
         }
     }
 
-    public async Task Sync(ISyncMessage<T> message) =>
-        await connection.InvokeAsync("SendSync", message);
-
     protected virtual HubConnection BuildHubConnection(string endpoint) =>
         new HubConnectionBuilder()
             .WithUrl(endpoint)

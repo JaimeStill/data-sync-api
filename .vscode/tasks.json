@@ -1,0 +1,132 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "app-build",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/App"
+            },
+            "args": [
+                "build"
+            ]
+        },
+        {
+            "label": "app-db-drop",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/App"
+            },
+            "args": [
+                "ef",
+                "database",
+                "drop",
+                "-f"
+            ]
+        },
+        {
+            "label": "app-db-update",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/App"
+            },
+            "args": [
+                "ef",
+                "database",
+                "update"
+            ]
+        },
+        {
+            "label": "app-restore",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/App"
+            },
+            "args": [
+                "restore",
+                "-f"
+            ]
+        },
+        {
+            "label": "app-run",
+            "command": "dotnet",
+            "type": "process",
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/App"
+            },
+            "presentation": {
+                "panel": "dedicated"
+            },
+            "args": [
+                "watch",
+                "run"
+            ]
+        },
+        {
+            "label": "seed",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/DbCli"
+            },
+            "args": [
+                "run"
+            ]
+        },
+        {
+            "label": "sln-build",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example"
+            },
+            "args": [
+                "build"
+            ]
+        },
+        {
+            "label": "svc-build",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/Service"
+            },
+            "args": [
+                "build"
+            ]
+        },
+        {
+            "label": "svc-restore",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/Service"
+            },
+            "args": [
+                "restore",
+                "-f"
+            ]
+        },
+        {
+            "label": "svc-run",
+            "command": "dotnet",
+            "type": "process",
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/Service"
+            },
+            "presentation": {
+                "panel": "dedicated"
+            },
+            "args": [
+                "watch",
+                "run"
+            ]
+        }
+    ]
+}
