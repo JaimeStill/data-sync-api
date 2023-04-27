@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using App.Data;
 using App.Hubs;
+using Common.Graph;
 using Common.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +38,7 @@ builder
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+builder.Services.AddGraphService();
 builder.Services.AddAppServices();
 
 var app = builder.Build();

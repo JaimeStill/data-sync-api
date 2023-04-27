@@ -1,8 +1,9 @@
 using Contracts;
+using Contracts.Sync;
 using Sync.Client;
 
 namespace Service.Sync;
-public class ProposalStartup : SyncStartup<ProposalClient, ProposalContract>
+public class ProposalStartup : SyncStartup<ProposalSync, ProposalContract>
 {
     public ProposalStartup(
         IServiceProvider provider,
@@ -14,7 +15,7 @@ public static class SyncStartupExtensions
 {
     public static void RegisterSyncClients(this IServiceCollection services)
     {
-        services.AddSyncClient<ProposalClient, ProposalContract>();
+        services.AddSyncClient<ProposalSync, ProposalContract>();
         services.AddHostedService<ProposalStartup>();
     }
 }

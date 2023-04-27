@@ -5,26 +5,25 @@ using Sync;
 using Sync.Hub;
 
 namespace Common.Services;
-public abstract class SyncService<T, H, Db> : EntityService<T, Db>
-     where T : Entity
-     where H : SyncHub<T>
-     where Db : DbContext
+public abstract class ApiSyncService<T, H, Db> : EntityService<T, Db>
+    where T : Entity
+    where H : ApiSyncHub<T>
+    where Db : DbContext
 {
-    protected IHubContext<H, ISyncHub<T>> sync;
-    public SyncService(Db db, IHubContext<H, ISyncHub<T>> sync) : base(db)
+    protected IHubContext<H, IApiSyncHub<T>> syncHub;
+    public ApiSyncService(Db db, IHubContext<H, IApiSyncHub<T>> sync) : base(db)
     {
-        this.sync = sync;
+        syncHub = sync;
     }
 
     protected override Func<T, Task> AfterAdd => async (T entity) =>
     {
         SyncMessage<T> message = new(
             entity,
-            ActionType.Add,
             $"{typeof(T)} successfully created"
         );
 
-        await sync
+        await syncHub
             .Clients
             .All
             .Add(message);
@@ -34,11 +33,10 @@ public abstract class SyncService<T, H, Db> : EntityService<T, Db>
     {
         SyncMessage<T> message = new(
             entity,
-            ActionType.Update,
             $"{typeof(T)} successfully updated"
         );
 
-        await sync
+        await syncHub
             .Clients
             .All
             .Update(message);
@@ -48,11 +46,10 @@ public abstract class SyncService<T, H, Db> : EntityService<T, Db>
     {
         SyncMessage<T> message = new(
             entity,
-            ActionType.Update,
-            $"{typeof(T)} successfully updated"
+            $"{typeof(T)} successfully removed"
         );
 
-        await sync
+        await syncHub
             .Clients
             .All
             .Remove(message);

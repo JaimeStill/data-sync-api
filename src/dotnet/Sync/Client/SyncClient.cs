@@ -9,10 +9,7 @@ public abstract class SyncClient<T> : ISyncClient<T>
 
     public SyncClientStatus Status => new(connection.ConnectionId, connection.State);
 
-    public SyncAction OnAdd { get; protected set; }
-    public SyncAction OnUpdate { get; protected set; }
     public SyncAction OnSync { get; protected set; }
-    public SyncAction OnRemove { get; protected set; }
 
     public SyncClient(string endpoint)
     {
@@ -52,25 +49,13 @@ public abstract class SyncClient<T> : ISyncClient<T>
         }
     }
 
-    public async Task Add(ISyncMessage<T> message) =>
-        await connection.InvokeAsync("SendCreate", message);
-
-    public async Task Update(ISyncMessage<T> message) =>
-        await connection.InvokeAsync("SendUpdate", message);
-
-    public async Task Sync(ISyncMessage<T> message) =>
-        await connection.InvokeAsync("SendSync", message);
-
-    public async Task Remove(ISyncMessage<T> message) =>
-        await connection.InvokeAsync("SendDelete", message);
-
     protected virtual HubConnection BuildHubConnection(string endpoint) =>
         new HubConnectionBuilder()
             .WithUrl(endpoint)
             .WithAutomaticReconnect()
             .Build();
 
-    protected void InitializeEvents()
+    protected virtual void InitializeEvents()
     {
         connection.Closed += async (error) =>
         {
@@ -80,17 +65,11 @@ public abstract class SyncClient<T> : ISyncClient<T>
     }
 
     [MemberNotNull(
-        nameof(OnAdd),
-        nameof(OnUpdate),
-        nameof(OnSync),
-        nameof(OnRemove)
+        nameof(OnSync)
     )]
-    protected void InitializeActions()
+    protected virtual void InitializeActions()
     {
-        OnAdd = new("Add", connection);
-        OnUpdate = new("Update", connection);
         OnSync = new("Sync", connection);
-        OnRemove = new("Remove", connection);
     }
 
     public async ValueTask DisposeAsync()
@@ -104,10 +83,7 @@ public abstract class SyncClient<T> : ISyncClient<T>
 
     protected virtual void DisposeEvents()
     {
-        OnAdd.Dispose();
-        OnUpdate.Dispose();
         OnSync.Dispose();
-        OnRemove.Dispose();
     }
 
     protected virtual async ValueTask DisposeConnection()
