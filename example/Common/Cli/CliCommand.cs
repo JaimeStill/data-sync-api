@@ -6,11 +6,17 @@ public abstract class CliCommand
 {
     readonly string name;
     readonly string description;
-    readonly Delegate @delegate;
+    readonly Delegate? @delegate;
     readonly List<Option>? options;
     readonly List<CliCommand>? commands;
 
-    public CliCommand(string name, string description, Delegate @delegate, List<Option>? options = null, List<CliCommand>? commands = null)
+    public CliCommand(
+        string name,
+        string description,
+        Delegate? @delegate = null,
+        List<Option>? options = null,
+        List<CliCommand>? commands = null
+    )
     {
         this.name = name;
         this.description = description;
@@ -21,10 +27,10 @@ public abstract class CliCommand
 
     public Command Build()
     {
-        Command command = new(name, description)
-        {
-            Handler = CommandHandler.Create(@delegate)
-        };
+        Command command = new(name, description);
+
+        if (@delegate is not null)
+            command.Handler = CommandHandler.Create(@delegate);
 
         options?.ForEach(command.AddOption);
         
