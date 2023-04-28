@@ -1,3 +1,4 @@
+using Contracts.App;
 using Microsoft.Extensions.Configuration;
 using Sync;
 using Sync.Client;

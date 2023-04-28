@@ -1,6 +1,6 @@
 {
     "ConnectionString": {
         "App": "Server=.\\DevSql;Trusted_Connection=True;TrustServerCertificate=True;Database=data-sync-app",
-        "Service": "Server=.\\DevSql;Trusted_Connection=True;TrustServerCertificate=True;Database=data-sync-service"
+        "Process": "Server=.\\DevSql;Trusted_Connection=True;TrustServerCertificate=True;Database=data-sync-process"
     }
 }

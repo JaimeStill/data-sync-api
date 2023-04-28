@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "server\App\App.cspro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbCli", "server\DbCli\DbCli.csproj", "{751BA7A1-709D-461B-9CA9-9B126321279E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "server\Service\Service.csproj", "{6A82E805-BD3A-4C1C-8EE5-71FA0BAC4AEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Process", "server\Process\Process.csproj", "{6A82E805-BD3A-4C1C-8EE5-71FA0BAC4AEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sync", "..\src\dotnet\Sync\Sync.csproj", "{A87DCABD-E614-4181-95B1-0A15FF9D9871}"
 EndProject

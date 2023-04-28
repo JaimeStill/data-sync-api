@@ -1,26 +1,33 @@
 using Common.Graph;
-using Contracts;
+using Contracts.App;
 using Contracts.Graph;
+using Contracts.Process;
 
 namespace SyncCli.Extensions;
 public static class App
 {
     public static AppGraph GetAppGraph(string graph) =>
-        new(GetGraphService(graph));
+        new(GetGraphService("App", graph));
 
-    public static string ToString(ProposalContract proposal) =>
-        $"{proposal.Id} - {proposal.Name} - {proposal.Description}";
+    public static ProcessGraph GetProcessGraph(string graph) =>
+        new(GetGraphService("Process", graph));
 
     public static void PrintProposal(ProposalContract proposal) =>
-        Console.WriteLine(ToString(proposal));
+        Console.WriteLine(proposal.ToString());
 
-    static GraphService GetGraphService(string graph) =>
+    public static void PrintPackage(PackageContract package) =>
+        Console.WriteLine(package.ToString());
+
+    public static void PrintResource(ResourceContract resource) =>
+        Console.WriteLine(resource.ToString());
+
+    static GraphService GetGraphService(string service, string graph) =>
         new(new Graph()
         {
             Id = Guid.NewGuid(),
             Endpoints = new()
             {
-                new() { Name = "App", Url = graph }
+                new() { Name = service, Url = graph }
             }
         });
 }

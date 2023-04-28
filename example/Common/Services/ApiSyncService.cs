@@ -16,12 +16,20 @@ public abstract class ApiSyncService<T, H, Db> : EntityService<T, Db>
         syncHub = sync;
     }
 
+    protected virtual string SetMessage(T entity, string action) =>
+        $"{typeof(T)} {entity.Name} successfully {action}";
+
+    protected virtual void LogAction(ISyncMessage<T> message, string action) =>
+        Console.WriteLine($"{action}: {message.Message}");
+
     protected override Func<T, Task> AfterAdd => async (T entity) =>
     {
         SyncMessage<T> message = new(
             entity,
-            $"{typeof(T)} successfully created"
+            SetMessage(entity, "created")
         );
+
+        LogAction(message, "Add");
 
         await syncHub
             .Clients
@@ -33,8 +41,10 @@ public abstract class ApiSyncService<T, H, Db> : EntityService<T, Db>
     {
         SyncMessage<T> message = new(
             entity,
-            $"{typeof(T)} successfully updated"
+            SetMessage(entity, "updated")
         );
+
+        LogAction(message, "Update");
 
         await syncHub
             .Clients
@@ -46,8 +56,10 @@ public abstract class ApiSyncService<T, H, Db> : EntityService<T, Db>
     {
         SyncMessage<T> message = new(
             entity,
-            $"{typeof(T)} successfully removed"
+            SetMessage(entity, "removed")
         );
+
+        LogAction(message, "Remove");
 
         await syncHub
             .Clients

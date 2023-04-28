@@ -14,12 +14,12 @@
             }
         },
         {
-            "name": "Debug Service",
+            "name": "Debug Process",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "svc-build",
-            "cwd": "${workspaceFolder}/example/server/Service",
-            "program": "bin/Debug/net7.0/Service.dll",
+            "preLaunchTask": "process-build",
+            "cwd": "${workspaceFolder}/example/server/Process",
+            "program": "bin/Debug/net7.0/Process.dll",
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"

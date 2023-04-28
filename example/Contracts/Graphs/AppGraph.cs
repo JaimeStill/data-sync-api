@@ -1,4 +1,6 @@
+using Common;
 using Common.Graph;
+using Contracts.App;
 
 namespace Contracts.Graph;
 public class AppGraph : GraphClient
@@ -12,9 +14,9 @@ public class AppGraph : GraphClient
     public async Task<ProposalContract?> GetProposal(int id) =>
         await Get<ProposalContract?>($"getProposal/{id}");
 
-    public async Task<ProposalContract?> SaveProposal(ProposalContract proposal) =>
-        await Post<ProposalContract?, ProposalContract>(proposal, "saveProposal");
+    public async Task<ApiResult<ProposalContract>?> SaveProposal(ProposalContract proposal) =>
+        await Post<ApiResult<ProposalContract>?, ProposalContract>(proposal, "saveProposal");
 
-    public async Task<int?> RemoveProposal(ProposalContract proposal) =>
-        await Delete<int?, ProposalContract>(proposal, "removeProposal");
+    public async Task<ApiResult<int>?> RemoveProposal(ProposalContract proposal) =>
+        await Delete<ApiResult<int>?, ProposalContract>(proposal, "removeProposal");
 }

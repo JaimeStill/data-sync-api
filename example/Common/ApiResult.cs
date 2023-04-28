@@ -2,8 +2,10 @@ namespace Common;
 public class ApiResult<T>
 {
     public T? Data { get; set; }
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
     public bool Error { get; set; }
+
+    public ApiResult() { }
 
     public ApiResult(string action, Exception ex)
     {

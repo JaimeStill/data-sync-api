@@ -1,8 +1,9 @@
+using Common.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Common.Graph;
 [Route("graph")]
-public abstract class GraphControllerBase : ControllerBase
+public abstract class GraphControllerBase : ApiController
 {
     protected readonly GraphService graphSvc;
 

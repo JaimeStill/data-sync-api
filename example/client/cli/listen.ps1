@@ -1,9 +1,16 @@
+param(
+    [string]
+    [Parameter()]
+    [ValidateSet("proposal", "process")]
+    $Command = "proposal"
+)
+
 $datasync = ".\bin\Debug\net7.0\datasync.exe"
 
-Write-Output "datasync proposal listen"
+Write-Output "datasync $Command listen"
 
 if (!(Test-Path -Path $datasync)) {
     & dotnet build
 }
 
-& $datasync proposal listen
+& $datasync $Command listen

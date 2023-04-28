@@ -1,11 +1,12 @@
-using Contracts;
+using Common.Controllers;
+using Contracts.App;
 using Contracts.Graph;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Service.Controllers;
+namespace Process.Controllers;
 
 [Route("graph/[controller]")]
-public class AppController : ControllerBase
+public class AppController : ApiController
 {
     readonly AppGraph graph;
 
@@ -28,9 +29,9 @@ public class AppController : ControllerBase
 
     [HttpPost("[action]")]
     public async Task<IActionResult> SaveProposal([FromBody] ProposalContract proposal) =>
-        Ok(await graph.SaveProposal(proposal));
+        ApiReturn(await graph.SaveProposal(proposal));
 
     [HttpDelete("[action]")]
     public async Task<IActionResult> RemoveProposal([FromBody] ProposalContract proposal) =>
-        Ok(await graph.RemoveProposal(proposal));
+        ApiReturn(await graph.RemoveProposal(proposal));
 }

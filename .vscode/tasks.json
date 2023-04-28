@@ -68,6 +68,72 @@
             ]
         },
         {
+            "label": "process-build",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/Process"
+            },
+            "args": [
+                "build"
+            ]
+        },
+        {
+            "label": "process-db-drop",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/Process"
+            },
+            "args": [
+                "ef",
+                "database",
+                "drop",
+                "-f"
+            ]
+        },
+        {
+            "label": "process-db-update",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/Process"
+            },
+            "args": [
+                "ef",
+                "database",
+                "update"
+            ]
+        },
+        {
+            "label": "process-restore",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/Process"
+            },
+            "args": [
+                "restore",
+                "-f"
+            ]
+        },
+        {
+            "label": "process-run",
+            "command": "dotnet",
+            "type": "process",
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}/example/server/Process"
+            },
+            "presentation": {
+                "panel": "dedicated"
+            },
+            "args": [
+                "watch",
+                "run"
+            ]
+        },
+        {
             "label": "seed",
             "command": "dotnet",
             "type": "shell",
@@ -87,45 +153,6 @@
             },
             "args": [
                 "build"
-            ]
-        },
-        {
-            "label": "svc-build",
-            "command": "dotnet",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/example/server/Service"
-            },
-            "args": [
-                "build"
-            ]
-        },
-        {
-            "label": "svc-restore",
-            "command": "dotnet",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/example/server/Service"
-            },
-            "args": [
-                "restore",
-                "-f"
-            ]
-        },
-        {
-            "label": "svc-run",
-            "command": "dotnet",
-            "type": "process",
-            "problemMatcher": "$msCompile",
-            "options": {
-                "cwd": "${workspaceFolder}/example/server/Service"
-            },
-            "presentation": {
-                "panel": "dedicated"
-            },
-            "args": [
-                "watch",
-                "run"
             ]
         }
     ]

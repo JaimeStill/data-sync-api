@@ -22,6 +22,7 @@ public class ProposalCommand : CliCommand
         },
         commands: new()
         {
+            new ProposalGetCommand(),
             new ProposalListCommand(),
             new ProposalListenCommand(),
             new ProposalRemoveCommand(),

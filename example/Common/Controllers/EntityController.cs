@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Common.Controllers;
-public abstract class EntityController<T, Db> : ControllerBase
+public abstract class EntityController<T, Db> : ApiController
     where T : Entity
     where Db : DbContext
 {
@@ -33,9 +33,9 @@ public abstract class EntityController<T, Db> : ControllerBase
 
     [HttpPost("[action]")]
     public virtual async Task<IActionResult> Save([FromBody]T entity) =>
-        Ok(await baseSvc.Save(entity));
+        ApiReturn(await baseSvc.Save(entity));
 
     [HttpDelete("[action]")]
     public virtual async Task<IActionResult> Remove([FromBody]T entity) =>
-        Ok(await baseSvc.Remove(entity));
+        ApiReturn(await baseSvc.Remove(entity));
 }

@@ -1,8 +1,8 @@
-using Contracts;
+using Contracts.App;
 using Contracts.Sync;
 using Sync.Client;
 
-namespace Service.Sync;
+namespace Process.Sync;
 public class ProposalStartup : SyncStartup<ProposalSync, ProposalContract>
 {
     public ProposalStartup(

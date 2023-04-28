@@ -1,5 +1,5 @@
 using Common.Cli;
-using Contracts;
+using Contracts.App;
 using Contracts.Graph;
 using SyncCli.Extensions;
 
@@ -20,7 +20,12 @@ public class ProposalListCommand : CliCommand
 
         List<ProposalContract>? result = await app.GetProposals();
 
-        Console.WriteLine(result is null ? "No Proposals Found" : "Proposals:");
+        Console.WriteLine(
+            result?.Count < 1
+                ? "No Proposals Found"
+                : "Proposals:"
+        );
+
         result?.ForEach(App.PrintProposal);
     }
 }

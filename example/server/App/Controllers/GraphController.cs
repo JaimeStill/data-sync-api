@@ -25,9 +25,9 @@ public class GraphController : GraphControllerBase
 
     [HttpPost("[action]")]
     public async Task<IActionResult> SaveProposal([FromBody] Proposal proposal) =>
-        Ok((await proposalSvc.Save(proposal)).Data);
+        ApiReturn(await proposalSvc.Save(proposal));
 
     [HttpDelete("[action]")]
     public async Task<IActionResult> RemoveProposal([FromBody] Proposal proposal) =>
-        Ok((await proposalSvc.Remove(proposal)).Data);
+        ApiReturn(await proposalSvc.Remove(proposal));
 }

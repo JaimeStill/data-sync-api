@@ -1,6 +1,7 @@
 using System.CommandLine;
+using Common;
 using Common.Cli;
-using Contracts;
+using Contracts.App;
 using Contracts.Graph;
 using SyncCli.Extensions;
 
@@ -37,7 +38,7 @@ public class ProposalSaveCommand : CliCommand
 
         Console.WriteLine($"Saving proposal {name}");
 
-        ProposalContract? result = await app.SaveProposal(new()
+        ApiResult<ProposalContract>? result = await app.SaveProposal(new()
         {
             Id = id,
             Name = name,
@@ -45,6 +46,11 @@ public class ProposalSaveCommand : CliCommand
         });
 
         if (result is not null)
-            Console.WriteLine($"Proposal {result.Name} successfully saved with ID {result.Id}");
+        {
+            if (result.Data is not null)
+                Console.WriteLine(result.Data.ToString());
+
+            Console.WriteLine(result.Message);
+        }
     }
 }

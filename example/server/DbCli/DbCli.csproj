@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\App\App.csproj" />
     <ProjectReference Include="..\..\Common\Common.csproj" />
-    <ProjectReference Include="..\Service\Service.csproj" />
+    <ProjectReference Include="..\Process\Process.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet\Sync\Sync.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 using System.CommandLine;
+using Common;
 using Common.Cli;
-using Contracts;
+using Contracts.App;
 using Contracts.Graph;
 using SyncCli.Extensions;
 
@@ -13,10 +14,10 @@ public class ProposalRemoveCommand : CliCommand
         new Func<string, int?, Task>(Call),
         new()
         {
-                new Option<int?>(
-                    new string[] { "--id", "-i" },
-                    description: "Proposal ID"
-                )
+            new Option<int?>(
+                new string[] { "--id", "-i" },
+                description: "Proposal ID"
+            )
         }
     )
     { }
@@ -40,14 +41,11 @@ public class ProposalRemoveCommand : CliCommand
             return;
         }
 
-        Console.WriteLine($"Removing Proposal: {App.ToString(proposal)}");
+        Console.WriteLine($"Removing Proposal: {proposal}");
 
-        int? result = await app.RemoveProposal(proposal);
+        ApiResult<int>? result = await app.RemoveProposal(proposal);
 
-        Console.WriteLine(
-            result is null
-                ? $"Proposal record {id} could not be removed"
-                : $"Proposal record {id} was successfully removed"
-        );
+        if (result is not null)
+            Console.WriteLine(result.Message);
     }
 }

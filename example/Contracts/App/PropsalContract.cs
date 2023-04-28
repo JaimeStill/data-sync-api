@@ -1,7 +1,10 @@
 using Common.Schema;
 
-namespace Contracts;
+namespace Contracts.App;
 public class ProposalContract : Contract
 {
     public string Description { get; set; } = string.Empty;
+
+    public override string ToString() =>
+        $"{Id} - {Name} - {Description}";
 }

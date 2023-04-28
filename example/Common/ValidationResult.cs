@@ -10,6 +10,14 @@ public class ValidationResult
         Messages = new List<string>();
     }
 
+    public ValidationResult(string message)
+    {
+        Messages = new()
+        {
+            message
+        };
+    }
+
     public ValidationResult(ValidationResult parent)
     {
         Messages = parent.Messages;

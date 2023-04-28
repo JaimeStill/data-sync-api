@@ -5,6 +5,7 @@ await new CliApp(
     "Data Sync CLI",
     new()
     {
+        new ProcessCommand(),
         new ProposalCommand()
     }
 ).InvokeAsync(args);
