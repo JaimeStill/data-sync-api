@@ -9,6 +9,7 @@ public abstract class SyncClient<T> : ISyncClient<T>
 
     public SyncClientStatus Status => new(connection.ConnectionId, connection.State);
 
+    public SyncAction OnPing { get; protected set; }
     public SyncAction OnSync { get; protected set; }
 
     public SyncClient(string endpoint)
@@ -17,9 +18,31 @@ public abstract class SyncClient<T> : ISyncClient<T>
 
         Console.WriteLine($"Building Sync connection at {endpoint}");
         connection = BuildHubConnection(endpoint);
+        
+        Initialize();
+    }
 
-        InitializeEvents();
-        InitializeActions();
+    [MemberNotNull(
+        nameof(OnPing),
+        nameof(OnSync)
+    )]
+    void Initialize()
+    {
+        connection.Closed += async (error) =>
+        {
+            await Task.Delay(5000);
+            await Connect();
+        };
+        
+        OnPing = new("Ping", connection);
+        OnSync = new("Sync", connection);
+        OnPing.Set(() => Console.WriteLine("Pong"));
+    }
+
+    public async Task Ping()
+    {
+        if (Status.State == HubConnectionState.Connected)
+            await connection.InvokeAsync("Ping");
     }
 
     public async Task Connect(CancellationToken token = new())
@@ -33,6 +56,7 @@ public abstract class SyncClient<T> : ISyncClient<T>
                     Console.WriteLine($"Connecting to {endpoint}");
                     await connection.StartAsync(token);
                     Console.WriteLine($"Now listening on {endpoint}");
+                    Console.WriteLine($"{Status.State} - {Status.ConnectionId}");
                     return;
                 }
                 catch when (token.IsCancellationRequested)
@@ -55,23 +79,6 @@ public abstract class SyncClient<T> : ISyncClient<T>
             .WithAutomaticReconnect()
             .Build();
 
-    protected virtual void InitializeEvents()
-    {
-        connection.Closed += async (error) =>
-        {
-            await Task.Delay(5000);
-            await Connect();
-        };
-    }
-
-    [MemberNotNull(
-        nameof(OnSync)
-    )]
-    protected virtual void InitializeActions()
-    {
-        OnSync = new("Sync", connection);
-    }
-
     public async ValueTask DisposeAsync()
     {
         DisposeEvents();
@@ -83,6 +90,7 @@ public abstract class SyncClient<T> : ISyncClient<T>
 
     protected virtual void DisposeEvents()
     {
+        OnPing.Dispose();
         OnSync.Dispose();
     }
 

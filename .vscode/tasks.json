@@ -68,6 +68,17 @@
             ]
         },
         {
+            "label": "cli-build",
+            "command": "dotnet",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/example/client/cli"
+            },
+            "args": [
+                "build"
+            ]
+        },
+        {
             "label": "process-build",
             "command": "dotnet",
             "type": "shell",

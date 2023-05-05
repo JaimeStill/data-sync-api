@@ -2,11 +2,11 @@ using Common.Cli;
 using Contracts.Process;
 
 namespace SyncCli.Commands;
-public class ProcessListenCommand : CliCommand
+public class ProcessPingCommand : CliCommand
 {
-    public ProcessListenCommand() : base(
-        "listen",
-        "Listen to a Process SyncHub endpoint",
+    public ProcessPingCommand() : base(
+        "ping",
+        "Ping the Process SyncHub endpoint",
         new Func<string, Task>(Call)
     ) { }
 
@@ -14,8 +14,6 @@ public class ProcessListenCommand : CliCommand
     {
         await using PackageSync client = new(sync);
         await client.Connect();
-        Console.WriteLine("Press Ctrl + C to exit...");
-
-        while (true) { }
+        await client.Ping();
     }
 }

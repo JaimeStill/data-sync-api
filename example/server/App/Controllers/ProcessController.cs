@@ -27,6 +27,11 @@ public class ProcessController : ApiController
     public async Task<IActionResult> GetAllByState([FromRoute]ProcessState state) =>
         Ok(await graph.GetAllByState(state));
 
+    [HttpGet("[action]/{id:int}")]
+    public async Task<IActionResult> GetById(
+        [FromRoute] int id
+    ) => Ok(await graph.GetById(id));
+
     [HttpGet("[action]/{resourceId:int}/{type}")]
     public async Task<IActionResult> GetByResource(
         [FromRoute]int resourceId,

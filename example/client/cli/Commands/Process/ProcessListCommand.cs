@@ -37,8 +37,8 @@ public class ProcessListCommand : CliCommand
 
         Console.WriteLine(
             result?.Count < 1
-                ? "No Proposals Found"
-                : "Proposals"
+                ? "No Packages Found"
+                : "Packages"
         );
 
         result?.ForEach(p =>
@@ -46,12 +46,9 @@ public class ProcessListCommand : CliCommand
             App.PrintPackage(p);
 
             if (p.Resources?.Count > 0)
-            {
-                Console.WriteLine("Resources:");
                 p.Resources
                     .ToList()
-                    .ForEach(App.PrintResource);
-            }
+                    .ForEach(x => Console.WriteLine($"\t* {x}"));
 
             Console.WriteLine();
         });

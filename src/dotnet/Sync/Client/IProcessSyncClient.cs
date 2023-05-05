@@ -1,7 +1,5 @@
-using Sync.Client;
-
-namespace Contracts.Process;
-public interface IProcessSync : ISyncClient<PackageContract>
+namespace Sync.Client;
+public interface IProcessSyncClient<T> : ISyncClient<T>
 {
     SyncAction OnComplete { get; }
     SyncAction OnReceive { get; }

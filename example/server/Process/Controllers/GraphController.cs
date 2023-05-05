@@ -1,3 +1,4 @@
+using Common;
 using Common.Graph;
 using Contracts.Process;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +8,9 @@ using Process.Services;
 namespace Process.Controllers;
 public class GraphController : GraphControllerBase
 {
-    readonly ProcessSyncService svc;
+    readonly PackageService svc;
 
-    public GraphController(GraphService graph, ProcessSyncService svc)
+    public GraphController(GraphService graph, PackageService svc)
     : base(graph)
     {
         this.svc = svc;
@@ -39,8 +40,11 @@ public class GraphController : GraphControllerBase
         ApiReturn(await svc.Complete(package));
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> Receive([FromBody] Package package) =>
-        ApiReturn(await svc.Receive(package));
+    public async Task<IActionResult> Receive([FromBody] Package package)
+    {
+        ApiResult<Package> result = await svc.Receive(package);
+        return ApiReturn(result);
+    }
 
     [HttpPost("[action]/{status}")]
     public async Task<IActionResult> Reject(

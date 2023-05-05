@@ -6,12 +6,12 @@ public class ResourceContract : Contract
     public int? PackageId { get; set; }
     public int ResourceId { get; set; }
     public string ResourceType { get; set; } = string.Empty;
-    public override string Type => $"{ContractRoots.Process}Resource";
+    public override string Type { get; set; } = $"{ContractRoots.Process}Resource";
 
     public PackageContract? Package { get; set; }
 
     public override string ToString() =>
-        $"{Id} - {ResourceId} - {Name} - {Type}";
+        $"{Id} - {ResourceId} - {Name} - {ResourceType}";
 
     public static ResourceContract Cast<T>(T entity)
     where T : Contract => new()

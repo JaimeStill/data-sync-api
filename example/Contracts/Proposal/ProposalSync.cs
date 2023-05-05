@@ -18,7 +18,7 @@ public class ProposalSync : ApiSyncClient<ProposalContract>
     }
 
     public ProposalSync(IConfiguration config) : base(
-        config.GetValue<string>("Sync:Proposal") ?? "http://localhost:5001/sync/proposal/"
+        config.GetValue<string>("Sync:Proposal") ?? "http://localhost:5001/sync/proposal"
     )
     {
         Initialize();

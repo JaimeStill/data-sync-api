@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Process.Migrations
+namespace App.Migrations
 {
     /// <inheritdoc />
     public partial class Type : Migration
@@ -10,19 +10,20 @@ namespace Process.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
+            migrationBuilder.AddColumn<string>(
                 name: "Type",
-                table: "Resource",
-                newName: "ResourceType");
+                table: "Proposal",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "ResourceType",
-                table: "Resource",
-                newName: "Type");
+            migrationBuilder.DropColumn(
+                name: "Type",
+                table: "Proposal");
         }
     }
 }

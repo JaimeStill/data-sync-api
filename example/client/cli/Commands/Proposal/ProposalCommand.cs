@@ -11,7 +11,7 @@ public class ProposalCommand : CliCommand
         {
             new Option<string>(
                 new string[] { "--sync", "-y" },
-                getDefaultValue: () => "http://localhost:5001/sync/proposal/",
+                getDefaultValue: () => "http://localhost:5001/sync/proposal",
                 description: "App Proposal SyncHub endpoint"
             ),
             new Option<string>(
@@ -31,7 +31,9 @@ public class ProposalCommand : CliCommand
             new ProposalListCommand(),
             new ProposalListenCommand(),
             new ProposalRemoveCommand(),
-            new ProposalSaveCommand()
+            new ProposalSaveCommand(),
+            new ProposalSendCommand(),
+            new ProposalWithdrawCommand()
         }
     ) { }
 }

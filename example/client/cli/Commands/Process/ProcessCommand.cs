@@ -11,8 +11,8 @@ public class ProcessCommand : CliCommand
         {
             new Option<string>(
                 new string[] { "--sync", "-y" },
-                getDefaultValue: () => "http://localhost:5002/sync/process/",
-                description: "Process Service SyncHub endpoint."
+                getDefaultValue: () => "http://localhost:5002/sync/package",
+                description: "Process Service Package SyncHub endpoint."
             ),
             new Option<string>(
                 new string[] { "--process", "-pg", "-p" },
@@ -26,6 +26,7 @@ public class ProcessCommand : CliCommand
             new ProcessGetCommand(),
             new ProcessListCommand(),
             new ProcessListenCommand(),
+            new ProcessPingCommand(),
             new ProcessRejectCommand(),
             new ProcessReturnCommand(),
             new ProcessSyncCommand()

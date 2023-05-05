@@ -6,9 +6,8 @@ namespace Process.Sync;
 public class ProposalStartup : SyncStartup<ProposalSync, ProposalContract>
 {
     public ProposalStartup(
-        IServiceProvider provider,
-        IHostApplicationLifetime lifetime
-    ) : base(provider, lifetime) { }
+        IServiceProvider provider
+    ) : base(provider) { }
 }
 
 public static class SyncStartupExtensions

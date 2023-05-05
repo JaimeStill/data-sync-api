@@ -6,4 +6,13 @@ public abstract class SyncHub<T, H> : Hub<H>
 {
     public void LogAction(ISyncMessage<T> message, string action) =>
         Console.WriteLine($"{action} message received: {message.Message}");
+
+    public async Task Ping()
+    {
+        Console.WriteLine("Ping received");
+
+        await Clients
+            .All
+            .Ping();
+    }
 }

@@ -45,16 +45,23 @@ namespace Process.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Pending");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Package", (string)null);
+                    b.ToTable("Packages");
                 });
 
             modelBuilder.Entity("Process.Models.Resource", b =>
@@ -87,11 +94,15 @@ namespace Process.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PackageId");
 
-                    b.ToTable("Resource", (string)null);
+                    b.ToTable("Resources");
                 });
 
             modelBuilder.Entity("Process.Models.Resource", b =>

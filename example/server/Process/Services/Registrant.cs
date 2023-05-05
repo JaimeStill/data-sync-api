@@ -7,6 +7,6 @@ public class Registrant : ServiceRegistrant
 
     public override void Register()
     {
-        services.AddScoped<ProcessSyncService>();
+        services.AddScoped<PackageService>();
     }
 }

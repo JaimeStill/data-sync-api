@@ -11,7 +11,7 @@ using Process.Data;
 namespace Process.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230428165924_Initial")]
+    [Migration("20230505175708_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -48,16 +48,23 @@ namespace Process.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Pending");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Package", (string)null);
+                    b.ToTable("Packages");
                 });
 
             modelBuilder.Entity("Process.Models.Resource", b =>
@@ -86,6 +93,10 @@ namespace Process.Migrations
                     b.Property<int>("ResourceId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ResourceType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,7 +105,7 @@ namespace Process.Migrations
 
                     b.HasIndex("PackageId");
 
-                    b.ToTable("Resource", (string)null);
+                    b.ToTable("Resources");
                 });
 
             modelBuilder.Entity("Process.Models.Resource", b =>

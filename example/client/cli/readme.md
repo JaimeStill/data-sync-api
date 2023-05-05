@@ -31,7 +31,7 @@ Usage:
   datasync proposal [command] [options]
 
 Options:
-  -s, --sync <sync>    App Proposal SyncHub endpoint [default: http://localhost:5001/sync/proposal/]
+  -s, --sync <sync>    App Proposal SyncHub endpoint [default: http://localhost:5001/sync/proposal]
   -g, --graph <graph>  App Graph endpoint [default: http://localhost:5001/graph/]
   -?, -h, --help       Show help and usage information
 
