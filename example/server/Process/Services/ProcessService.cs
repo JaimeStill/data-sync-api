@@ -41,6 +41,10 @@ public abstract class ProcessService
             .OrderBy(x => x.Name)
             .ToListAsync();
 
+    public async Task<Package?> GetById(int id) =>
+        await query
+            .FirstOrDefaultAsync(x => x.Id == id);
+
     public async Task<Package?> GetByResource(int resourceId, string type) =>
         await query
             .FirstOrDefaultAsync(x =>

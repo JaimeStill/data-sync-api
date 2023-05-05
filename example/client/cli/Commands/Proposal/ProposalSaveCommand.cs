@@ -32,13 +32,12 @@ public class ProposalSaveCommand : CliCommand
         }
     ) { }
 
-    static async Task Call(string graph, string name, string description, int id)
+    static async Task Call(string app, string name, string description, int id)
     {
-        AppGraph app = App.GetAppGraph(graph);
+        AppGraph ag = App.GetAppGraph(app);
 
         Console.WriteLine($"Saving proposal {name}");
-
-        ApiResult<ProposalContract>? result = await app.SaveProposal(new()
+        ApiResult<ProposalContract>? result = await ag.SaveProposal(new()
         {
             Id = id,
             Name = name,
@@ -48,9 +47,11 @@ public class ProposalSaveCommand : CliCommand
         if (result is not null)
         {
             if (result.Data is not null)
-                Console.WriteLine(result.Data.ToString());
+                App.PrintProposal(result.Data);
 
             Console.WriteLine(result.Message);
         }
+        else
+            Console.WriteLine($"Proposal {name} was unable to be saved");
     }
 }

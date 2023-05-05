@@ -1,5 +1,5 @@
 using Contracts.App;
-using Contracts.Sync;
+using Contracts.Proposal;
 using Sync.Client;
 
 namespace Process.Sync;

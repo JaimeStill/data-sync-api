@@ -5,7 +5,8 @@ public class ResourceContract : Contract
 {
     public int? PackageId { get; set; }
     public int ResourceId { get; set; }
-    public string Type { get; set; } = "Type";
+    public string ResourceType { get; set; } = string.Empty;
+    public override string Type => $"{ContractRoots.Process}Resource";
 
     public PackageContract? Package { get; set; }
 
@@ -17,6 +18,6 @@ public class ResourceContract : Contract
     {
         Name = entity.Name,
         ResourceId = entity.Id,
-        Type = entity.GetType().FullName ?? "Entity"
+        ResourceType = entity.Type
     };
 }

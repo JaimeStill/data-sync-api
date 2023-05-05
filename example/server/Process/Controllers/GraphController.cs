@@ -23,6 +23,11 @@ public class GraphController : GraphControllerBase
     public async Task<IActionResult> GetAllByState([FromRoute]ProcessState state) =>
         Ok(await svc.GetAllByState(state));
 
+    [HttpGet("[action]/{id:int}")]
+    public async Task<IActionResult> GetById(
+        [FromRoute]int id
+    ) => Ok(await svc.GetById(id));
+
     [HttpGet("[action]/{resourceId:int}/{type}")]
     public async Task<IActionResult> GetByResource(
         [FromRoute]int resourceId,

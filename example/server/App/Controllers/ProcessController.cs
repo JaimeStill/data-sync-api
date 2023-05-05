@@ -34,12 +34,12 @@ public class ProcessController : ApiController
     ) => Ok(await graph.GetByResource(resourceId, type));
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> Complete([FromBody] PackageContract package) =>
-        ApiReturn(await graph.Complete(package));
+    public async Task<IActionResult> Send([FromBody] PackageContract package) =>
+        ApiReturn(await graph.Send(package));
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> Receive([FromBody] PackageContract package) =>
-        ApiReturn(await graph.Receive(package));
+    public async Task<IActionResult> Complete([FromBody] PackageContract package) =>
+        ApiReturn(await graph.Complete(package));
 
     [HttpPost("[action]/{status}")]
     public async Task<IActionResult> Reject(

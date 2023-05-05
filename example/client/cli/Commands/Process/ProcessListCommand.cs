@@ -21,9 +21,9 @@ public class ProcessListCommand : CliCommand
         }
     ) { }
 
-    static async Task Call(string graph, ProcessState? state)
+    static async Task Call(string process, ProcessState? state)
     {
-        ProcessGraph pg = App.GetProcessGraph(graph);
+        ProcessGraph pg = App.GetProcessGraph(process);
 
         Console.WriteLine(
             state is null

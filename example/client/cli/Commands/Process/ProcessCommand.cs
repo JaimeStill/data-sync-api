@@ -10,20 +10,25 @@ public class ProcessCommand : CliCommand
         options: new()
         {
             new Option<string>(
-                new string[] { "--sync", "-s" },
+                new string[] { "--sync", "-y" },
                 getDefaultValue: () => "http://localhost:5002/sync/process/",
-                description: "Process Service SyncHub endpoint"
+                description: "Process Service SyncHub endpoint."
             ),
             new Option<string>(
-                new string[] { "--graph", "-g" },
-                getDefaultValue: () => "http://localhost:5002/graph/"
+                new string[] { "--process", "-pg", "-p" },
+                getDefaultValue: () => "http://localhost:5002/graph/",
+                description: "Process Service Graph endpoint."
             )
         },
         commands: new()
         {
+            new ProcessCompleteCommand(),
             new ProcessGetCommand(),
             new ProcessListCommand(),
-            new ProcessListenCommand()
+            new ProcessListenCommand(),
+            new ProcessRejectCommand(),
+            new ProcessReturnCommand(),
+            new ProcessSyncCommand()
         }
     ) { }
 }

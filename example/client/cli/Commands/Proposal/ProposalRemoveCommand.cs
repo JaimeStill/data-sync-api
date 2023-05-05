@@ -19,10 +19,9 @@ public class ProposalRemoveCommand : CliCommand
                 description: "Proposal ID"
             )
         }
-    )
-    { }
+    ) { }
 
-    static async Task Call(string graph, int? id)
+    static async Task Call(string app, int? id)
     {
         if (id is null)
         {
@@ -30,10 +29,10 @@ public class ProposalRemoveCommand : CliCommand
             return;
         }
 
-        AppGraph app = App.GetAppGraph(graph);
+        AppGraph ag = App.GetAppGraph(app);
 
-        Console.WriteLine($"Checking if Proposal record {id} exists");
-        ProposalContract? proposal = await app.GetProposal(id.Value);
+        Console.WriteLine($"Retrieving Proposal record {id}");
+        ProposalContract? proposal = await ag.GetProposal(id.Value);
 
         if (proposal is null)
         {
@@ -41,9 +40,9 @@ public class ProposalRemoveCommand : CliCommand
             return;
         }
 
-        Console.WriteLine($"Removing Proposal: {proposal}");
+        Console.WriteLine($"Removing Proposal: {proposal.Name}");
 
-        ApiResult<int>? result = await app.RemoveProposal(proposal);
+        ApiResult<int>? result = await ag.RemoveProposal(proposal);
 
         if (result is not null)
             Console.WriteLine(result.Message);

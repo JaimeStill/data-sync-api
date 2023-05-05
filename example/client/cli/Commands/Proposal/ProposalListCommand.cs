@@ -12,13 +12,12 @@ public class ProposalListCommand : CliCommand
         new Func<string, Task>(Call)
     ) { }
 
-    static async Task Call(string graph)
+    static async Task Call(string app)
     {
-        AppGraph app = App.GetAppGraph(graph);
+        AppGraph ag = App.GetAppGraph(app);
 
         Console.WriteLine("Retrieving Proposals");
-
-        List<ProposalContract>? result = await app.GetProposals();
+        List<ProposalContract>? result = await ag.GetProposals();
 
         Console.WriteLine(
             result?.Count < 1

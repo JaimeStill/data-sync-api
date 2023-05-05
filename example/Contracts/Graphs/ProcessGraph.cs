@@ -14,13 +14,16 @@ public class ProcessGraph : GraphClient
     public async Task<List<PackageContract>?> GetAllByState(ProcessState state) =>
         await Get<List<PackageContract>?>($"getAllByState/{state}");
 
+    public async Task<PackageContract?> GetById(int id) =>
+        await Get<PackageContract?>($"getById/{id}");
+
     public async Task<PackageContract?> GetByResource(int resourceId, string type) =>
         await Get<PackageContract?>($"getByResource/{resourceId}/{type}");
 
     public async Task<ApiResult<PackageContract>?> Complete(PackageContract package) =>
         await Post<ApiResult<PackageContract>?, PackageContract>(package, "complete");
 
-    public async Task<ApiResult<PackageContract>?> Receive(PackageContract package) =>
+    public async Task<ApiResult<PackageContract>?> Send(PackageContract package) =>
         await Post<ApiResult<PackageContract>?, PackageContract>(package, "receive");
 
     public async Task<ApiResult<PackageContract>?> Reject(PackageContract package, string status) =>

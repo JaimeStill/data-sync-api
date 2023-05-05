@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Sync;
 using Sync.Client;
 
-namespace Contracts.Sync;
+namespace Contracts.Proposal;
 public class ProposalSync : ApiSyncClient<ProposalContract>
 {
     static void WriteMessage(SyncMessage<ProposalContract> message) =>
