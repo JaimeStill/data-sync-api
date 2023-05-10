@@ -38,6 +38,26 @@ builder
     });
 ```
 
+**Graph Client Serialization**
+
+This is configured in [`GraphClient`](./example/Common/Graph/GraphClient.cs) and used in all of the integrated HTTP calls:
+
+```cs
+protected static JsonSerializerOptions JsonOptions()
+{
+    JsonSerializerOptions options = new()
+    {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        ReferenceHandler = ReferenceHandler.IgnoreCycles
+    };
+
+    options.Converters.Add(new JsonStringEnumConverter());
+
+    return options;
+}
+```
+
 **SignalR Server Serialization**
 
 This is configured in the `Program.cs` of an ASP.NET Core project:

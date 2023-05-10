@@ -14,7 +14,24 @@
             }
         },
         {
-            "name": "Debug CLI Send",
+            "name": "Debug CLI Package Get",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "cli-build",
+            "cwd": "${workspaceFolder}/example/client/cli",
+            "program": "bin/Debug/net7.0/datasync.dll",
+            "stopAtEntry": false,
+            "args": [
+                "package",
+                "get",
+                "-i",
+                "1",
+                "-t",
+                "App.Models.Proposal"
+            ]
+        },
+        {
+            "name": "Debug CLI Proposal Send",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "cli-build",

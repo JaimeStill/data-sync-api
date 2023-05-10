@@ -37,11 +37,14 @@ public abstract class GraphClient
         return endpointId;
     }
 
-    protected async Task<Return?> Get<Return>(string method) =>
-        await http.GetFromJsonAsync<Return?>(
-            Path.Join(endpoint.Url, method),
-            JsonOptions()
-        );
+    protected async Task<Return?> Get<Return>(string method)
+    {
+        HttpResponseMessage response = await http.GetAsync(Path.Join(endpoint.Url, method));
+            
+        return response.IsSuccessStatusCode
+            ? await ReadResult<Return?>(response)
+            : default;
+    }
 
     protected async Task<Return?> Post<Return, Data>(Data data, string method)
     {
