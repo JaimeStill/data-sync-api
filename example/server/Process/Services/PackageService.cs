@@ -22,15 +22,19 @@ public class PackageService : ProcessSyncService<Package, PackageHub, AppDbConte
             .OrderBy(x => x.Name)
             .ToListAsync();
 
-    public async Task<Package?> GetByResource(int resourceId, string type) =>
-        await query
+    public async Task<Package?> GetByResource(int resourceId, string type)
+    {
+        Package? package = await query
             .FirstOrDefaultAsync(x =>
                 x.Resources != null
                 && x.Resources.Any(y =>
                     y.ResourceId == resourceId
-                    && y.Type == type
+                    && y.ResourceType == type
                 )
             );
+
+        return package;
+    }
 
     protected override Func<Package, Task<Package>> OnComplete => (package) =>
     {
@@ -43,6 +47,7 @@ public class PackageService : ProcessSyncService<Package, PackageHub, AppDbConte
     protected override Func<Package, Task<Package>> OnReceive => (package) =>
     {
         package.Status = "Received";
+        package.State = ProcessState.Pending;
 
         return Task.FromResult(package);
     };

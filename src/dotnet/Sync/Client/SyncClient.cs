@@ -87,10 +87,6 @@ public abstract class SyncClient<T> : ISyncClient<T>
                 options.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             })
             .WithUrl(endpoint)
-            .ConfigureLogging(logging => {
-                logging.AddConsole();
-                logging.SetMinimumLevel(LogLevel.Warning);
-            })
             .WithAutomaticReconnect()
             .Build();
 

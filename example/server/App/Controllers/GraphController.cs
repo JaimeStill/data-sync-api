@@ -17,11 +17,11 @@ public class GraphController : GraphControllerBase
 
     [HttpGet("[action]")]
     public async Task<IActionResult> GetProposals() =>
-        Ok(await proposalSvc.Get());
+        ApiReturn(await proposalSvc.Get());
 
     [HttpGet("[action]/{id:int}")]
     public async Task<IActionResult> GetProposal([FromRoute] int id) =>
-        Ok(await proposalSvc.GetById(id));
+        ApiReturn(await proposalSvc.GetById(id));
 
     [HttpPost("[action]")]
     public async Task<IActionResult> SaveProposal([FromBody] Proposal proposal) =>

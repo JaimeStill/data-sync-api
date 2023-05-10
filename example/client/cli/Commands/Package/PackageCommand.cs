@@ -2,11 +2,11 @@ using System.CommandLine;
 using Common.Cli;
 
 namespace SyncCli.Commands;
-public class ProcessCommand : CliCommand
+public class PackageCommand : CliCommand
 {
-    public ProcessCommand() : base(
-        "process",
-        "Interface with the Process Service API",
+    public PackageCommand() : base(
+        "package",
+        "Interface with Packages via the Process Service API",
         options: new()
         {
             new Option<string>(
@@ -22,14 +22,14 @@ public class ProcessCommand : CliCommand
         },
         commands: new()
         {
-            new ProcessCompleteCommand(),
-            new ProcessGetCommand(),
-            new ProcessListCommand(),
-            new ProcessListenCommand(),
-            new ProcessPingCommand(),
-            new ProcessRejectCommand(),
-            new ProcessReturnCommand(),
-            new ProcessSyncCommand()
+            new PackageCompleteCommand(),
+            new PackageGetCommand(),
+            new PackageListCommand(),
+            new PackageListenCommand(),
+            new PackagePingCommand(),
+            new PackageRejectCommand(),
+            new PackageReturnCommand(),
+            new PackageSyncCommand()
         }
     ) { }
 }

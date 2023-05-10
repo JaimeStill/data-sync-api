@@ -18,22 +18,22 @@ public class GraphController : GraphControllerBase
 
     [HttpGet("[action]")]
     public async Task<IActionResult> GetAll() =>
-        Ok(await svc.GetAll());
+        ApiReturn(await svc.GetAll());
 
     [HttpGet("[action]/{state}")]
     public async Task<IActionResult> GetAllByState([FromRoute]ProcessState state) =>
-        Ok(await svc.GetAllByState(state));
+        ApiReturn(await svc.GetAllByState(state));
 
     [HttpGet("[action]/{id:int}")]
     public async Task<IActionResult> GetById(
         [FromRoute]int id
-    ) => Ok(await svc.GetById(id));
+    ) => ApiReturn(await svc.GetById(id));
 
     [HttpGet("[action]/{resourceId:int}/{type}")]
     public async Task<IActionResult> GetByResource(
         [FromRoute]int resourceId,
         [FromRoute]string type
-    ) => Ok(await svc.GetByResource(resourceId, type));
+    ) => ApiReturn(await svc.GetByResource(resourceId, type));
 
     [HttpPost("[action]")]
     public async Task<IActionResult> Complete([FromBody]Package package) =>

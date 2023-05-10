@@ -8,5 +8,5 @@ public class Package : Entity
     public string Status { get; set; } = string.Empty;
     public ProcessState State { get; set; } = ProcessState.Pending;
 
-    public ICollection<Resource>? Resources { get; set; }
+    public ICollection<Resource> Resources { get; set; } = new List<Resource>();
 }

@@ -2,11 +2,11 @@ using Common.Cli;
 using Contracts.Process;
 
 namespace SyncCli.Commands;
-public class ProcessPingCommand : CliCommand
+public class PackagePingCommand : CliCommand
 {
-    public ProcessPingCommand() : base(
+    public PackagePingCommand() : base(
         "ping",
-        "Ping the Process SyncHub endpoint",
+        "Ping the Package SyncHub endpoint",
         new Func<string, Task>(Call)
     ) { }
 

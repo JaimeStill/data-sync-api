@@ -1,7 +1,7 @@
 param(
     [string]
     [Parameter()]
-    [ValidateSet("proposal", "process")]
+    [ValidateSet("proposal", "package")]
     $Command = "proposal"
 )
 

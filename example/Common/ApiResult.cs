@@ -1,9 +1,10 @@
 namespace Common;
-public class ApiResult<T>
+public class ApiResult<T> : IApiResult
 {
     public T? Data { get; set; }
     public string Message { get; set; } = string.Empty;
     public bool Error { get; set; }
+    public bool HasData => Data is not null;
 
     public ApiResult() { }
 

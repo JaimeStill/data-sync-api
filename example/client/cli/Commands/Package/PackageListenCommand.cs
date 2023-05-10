@@ -2,11 +2,11 @@ using Common.Cli;
 using Contracts.Process;
 
 namespace SyncCli.Commands;
-public class ProcessListenCommand : CliCommand
+public class PackageListenCommand : CliCommand
 {
-    public ProcessListenCommand() : base(
+    public PackageListenCommand() : base(
         "listen",
-        "Listen to a Process SyncHub endpoint",
+        "Listen to a Package SyncHub endpoint",
         new Func<string, Task>(Call)
     ) { }
 

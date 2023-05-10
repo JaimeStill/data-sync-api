@@ -6,11 +6,11 @@ using Contracts.Process;
 using SyncCli.Extensions;
 
 namespace SyncCli.Commands;
-public class ProcessRejectCommand : CliCommand
+public class PackageReturnCommand : CliCommand
 {
-    public ProcessRejectCommand() : base(
-        "reject",
-        "Reject a Package via the Process Service Graph API",
+    public PackageReturnCommand() : base(
+        "return",
+        "Return a Package via the Process Service Graph API",
         new Func<string, int?, string?, Task>(Call),
         new()
         {
@@ -29,19 +29,19 @@ public class ProcessRejectCommand : CliCommand
     {
         if (id is null)
         {
-            Console.WriteLine("An ID must be provided to reject a Package");
+            Console.WriteLine("An ID must be provided to return a Package");
             return;
         }
 
         if (string.IsNullOrWhiteSpace(status))
         {
-            Console.WriteLine("A resulting Status must be provided to reject a Package");
+            Console.WriteLine("A resulting Status must be provided to return a Package");
             return;
         }
 
         ProcessGraph pg = App.GetProcessGraph(process);
 
-        Console.WriteLine($"Retrieving Package record {id}");
+        Console.WriteLine("Retrieving Package record {id}");
         PackageContract? package = await pg.GetById(id.Value);
 
         if (package is null)
@@ -50,13 +50,13 @@ public class ProcessRejectCommand : CliCommand
             return;
         }
 
-        Console.WriteLine($"Rejecting Package: {package.Name}");
+        Console.WriteLine($"Returning Package: {package.Name}");
 
-        ApiResult<PackageContract>? result = await pg.Reject(package, status);
+        ApiResult<PackageContract>? result = await pg.Return(package, status);
 
         if (result is not null)
             Console.WriteLine(result.Message);
         else
-            Console.WriteLine("Package was unable to be rejected");
+            Console.WriteLine("Package was unable to be returned");
     }
 }

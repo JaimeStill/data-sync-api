@@ -30,7 +30,8 @@ public class ProposalSendCommand : CliCommand
                 description: "Proposal ID"
             )
         }
-    ) { }
+    )
+    { }
 
     static async Task Call(string app, string process, string name, string description, int? id)
     {
@@ -52,15 +53,16 @@ public class ProposalSendCommand : CliCommand
             return;
         }
 
-        PackageContract package = new()
-        {
-            Name = name,
-            Description = description,
-            Resources = new List<ResourceContract>()
+        PackageContract package = await pg.GetByResource(proposal.Id, proposal.Type)
+            ?? new()
             {
-                ResourceContract.Cast(proposal)
-            }
-        };
+                Name = name,
+                Description = description,
+                Resources = new List<ResourceContract>()
+                {
+                    ResourceContract.Cast(proposal)
+                }
+            };
 
         Console.WriteLine($"Sending Proposal Package {package.Name}");
         ApiResult<PackageContract>? result = await pg.Send(package);

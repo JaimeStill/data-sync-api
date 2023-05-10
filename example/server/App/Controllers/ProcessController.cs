@@ -17,26 +17,26 @@ public class ProcessController : ApiController
 
     [HttpGet]
     public async Task<IActionResult> Get() =>
-        Ok(await graph.Initialize());
+        ApiReturn(await graph.Initialize());
 
     [HttpGet("[action]")]
     public async Task<IActionResult> GetAll() =>
-        Ok(await graph.GetAll());
+        ApiReturn(await graph.GetAll());
 
     [HttpGet("[action]/{state}")]
     public async Task<IActionResult> GetAllByState([FromRoute]ProcessState state) =>
-        Ok(await graph.GetAllByState(state));
+        ApiReturn(await graph.GetAllByState(state));
 
     [HttpGet("[action]/{id:int}")]
     public async Task<IActionResult> GetById(
         [FromRoute] int id
-    ) => Ok(await graph.GetById(id));
+    ) => ApiReturn(await graph.GetById(id));
 
     [HttpGet("[action]/{resourceId:int}/{type}")]
     public async Task<IActionResult> GetByResource(
         [FromRoute]int resourceId,
         [FromRoute]string type
-    ) => Ok(await graph.GetByResource(resourceId, type));
+    ) => ApiReturn(await graph.GetByResource(resourceId, type));
 
     [HttpPost("[action]")]
     public async Task<IActionResult> Send([FromBody] PackageContract package) =>

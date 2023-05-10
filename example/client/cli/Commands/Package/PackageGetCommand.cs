@@ -5,9 +5,9 @@ using Contracts.Process;
 using SyncCli.Extensions;
 
 namespace SyncCli.Commands;
-public class ProcessGetCommand : CliCommand
+public class PackageGetCommand : CliCommand
 {
-    public ProcessGetCommand() : base(
+    public PackageGetCommand() : base(
         "get",
         "Get and list a Package record by ResourceId and Type via the Process Service Graph API",
         new Func<string, int?, string?, Task>(Call),

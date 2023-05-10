@@ -6,9 +6,9 @@ using Contracts.Process;
 using SyncCli.Extensions;
 
 namespace SyncCli.Commands;
-public class ProcessCompleteCommand : CliCommand
+public class PackageCompleteCommand : CliCommand
 {
-    public ProcessCompleteCommand() : base(
+    public PackageCompleteCommand() : base(
         "complete",
         "Complete a Package via the Process Service Graph API",
         new Func<string, int?, Task>(Call),

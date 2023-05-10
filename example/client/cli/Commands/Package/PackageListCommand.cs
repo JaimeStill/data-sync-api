@@ -5,9 +5,9 @@ using Contracts.Process;
 using SyncCli.Extensions;
 
 namespace SyncCli.Commands;
-public class ProcessListCommand : CliCommand
+public class PackageListCommand : CliCommand
 {
-    public ProcessListCommand() : base(
+    public PackageListCommand() : base(
         "list",
         "Get and list Process Package records via the Process Graph API",
         new Func<string, ProcessState?, Task>(Call),

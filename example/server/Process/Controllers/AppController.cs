@@ -17,15 +17,15 @@ public class AppController : ApiController
 
     [HttpGet]
     public async Task<IActionResult> Get() =>
-        Ok(await graph.Initialize());
+        ApiReturn(await graph.Initialize());
 
     [HttpGet("[action]")]
     public async Task<IActionResult> GetProposals() =>
-        Ok(await graph.GetProposals());
+        ApiReturn(await graph.GetProposals());
 
     [HttpGet("[action]/{id:int}")]
     public async Task<IActionResult> GetProposal([FromRoute] int id) =>
-        Ok(await graph.GetProposal(id));
+        ApiReturn(await graph.GetProposal(id));
 
     [HttpPost("[action]")]
     public async Task<IActionResult> SaveProposal([FromBody] ProposalContract proposal) =>

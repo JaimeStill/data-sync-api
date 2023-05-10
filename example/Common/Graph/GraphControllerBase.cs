@@ -13,5 +13,5 @@ public abstract class GraphControllerBase : ApiController
     }
 
     [HttpGet]
-    public IActionResult Get() => Ok(graphSvc.GraphId);
+    public IActionResult Get() => ApiReturn(graphSvc.GraphId);
 }
