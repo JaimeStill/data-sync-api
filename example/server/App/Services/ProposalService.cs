@@ -8,5 +8,9 @@ using Sync.Hub;
 namespace App.Services;
 public class ProposalService : ApiSyncService<Proposal, ProposalHub, AppDbContext>
 {
-    public ProposalService(AppDbContext db, IHubContext<ProposalHub, IApiSyncHub<Proposal>> sync) : base(db, sync) { }
+    public ProposalService(
+        AppDbContext db,
+        IHubContext<ProposalHub,
+        IApiSyncHub<Proposal>> sync
+    ) : base(db, sync) { }
 }

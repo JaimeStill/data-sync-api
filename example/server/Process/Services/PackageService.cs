@@ -70,7 +70,8 @@ public class PackageService : ProcessSyncService<Package, PackageHub, AppDbConte
         return Task.FromResult(package);
     };
 
-
+    protected override IQueryable<Package> SetGraph(DbSet<Package> data) =>
+        data.Include(x => x.Resources);
 
     protected override ValidationResult ValidateAction(Package package, string action)
     {

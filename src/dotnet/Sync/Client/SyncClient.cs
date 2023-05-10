@@ -1,5 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Sync.Client;
 public abstract class SyncClient<T> : ISyncClient<T>
@@ -75,7 +79,18 @@ public abstract class SyncClient<T> : ISyncClient<T>
 
     protected virtual HubConnection BuildHubConnection(string endpoint) =>
         new HubConnectionBuilder()
+            .AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.PayloadSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                options.PayloadSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            })
             .WithUrl(endpoint)
+            .ConfigureLogging(logging => {
+                logging.AddConsole();
+                logging.SetMinimumLevel(LogLevel.Warning);
+            })
             .WithAutomaticReconnect()
             .Build();
 

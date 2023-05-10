@@ -30,6 +30,7 @@ public class ProposalCommand : CliCommand
             new ProposalGetCommand(),
             new ProposalListCommand(),
             new ProposalListenCommand(),
+            new ProposalPingCommand(),
             new ProposalRemoveCommand(),
             new ProposalSaveCommand(),
             new ProposalSendCommand(),
