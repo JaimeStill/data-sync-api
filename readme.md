@@ -43,9 +43,9 @@ Cross-service communication is established through the [Graph](./example/Common/
 * [ProcessGraph](./example/Contracts/Process/ProcessGraph.cs)
 * [Process - appsettings.json](./example/server/Process/appsettings.json)
 
-## Service-based Event Reactions
+## API Service Event Reactions
 
-Demonstrates leveraging internal API services to react to sync events to synchronize dependend data from an external service. In this example, the `Remove` action triggers the Process Service to cleanup any incomplete `Package` items associated with the removed data.
+Demonstrates leveraging internal API services to react to sync events to synchronize dependent data from an external service. In this example, the `Remove` action triggers the Process Service to cleanup any incomplete `Package` items associated with the removed data.
 
 https://github.com/JaimeStill/data-sync-api/assets/14102723/865e476b-6856-41e7-8500-cd131a3ff556
 
