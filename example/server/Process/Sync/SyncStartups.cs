@@ -1,4 +1,4 @@
-using Contracts.App;
+using ProposalContract = Contracts.App.ProposalContract;
 using Sync.Client;
 
 namespace Process.Sync;

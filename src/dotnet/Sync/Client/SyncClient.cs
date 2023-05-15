@@ -3,7 +3,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Sync.Client;
 public abstract class SyncClient<T> : ISyncClient<T>
@@ -75,6 +74,14 @@ public abstract class SyncClient<T> : ISyncClient<T>
                 }
             }
         }
+    }
+
+    protected async Task ExecuteServiceAction<Service>(IServiceProvider provider, Func<Service, Task> action)
+    where Service : notnull
+    {
+        using IServiceScope scope = provider.CreateScope();
+        Service svc = scope.ServiceProvider.GetRequiredService<Service>();
+        await action(svc);
     }
 
     protected virtual HubConnection BuildHubConnection(string endpoint) =>
