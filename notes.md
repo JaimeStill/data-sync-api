@@ -2,11 +2,7 @@
 
 ## Todo
 
-* Build out infrastructure that supports instantiating shorter-lived services inside of a Singleton Sync client with custom-registered event behaviors (i.e. - initialize `AppDbContext` and update records associated with external data affected by a socket event).
-
 * Build out a web client that holistically demonstrates the power of this infrastructure.
-
-* Extract all unnecessary infrastructure from `src` and move it to `example/Common` (i.e. - all infrastructure associated with `ApiSync` and `ProcessSync`). While these are great examples, they aren't needed as part of the source packages.
 
 * Build out holistic documentation for the finalized source and example infrastructure.
 
