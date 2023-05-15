@@ -1,5 +1,5 @@
 using Common.Cli;
-using Contracts.Proposal;
+using Contracts.App;
 
 namespace SyncCli.Commands;
 public class ProposalPingCommand : CliCommand
