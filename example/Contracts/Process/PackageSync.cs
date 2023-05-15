@@ -1,6 +1,6 @@
+using Common.Sync.Client;
 using Microsoft.Extensions.Configuration;
 using Sync;
-using Sync.Client;
 
 namespace Contracts.Process;
 public class PackageSync : ProcessSyncClient<PackageContract>

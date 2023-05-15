@@ -1,8 +1,8 @@
 using Common.Schema;
+using Common.Sync.Hub;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Sync;
-using Sync.Hub;
 
 namespace Common.Services;
 public abstract class ApiSyncService<T, H, Db> : EntityService<T, Db>

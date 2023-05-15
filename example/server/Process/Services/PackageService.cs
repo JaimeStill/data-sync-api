@@ -1,12 +1,12 @@
 using Common;
 using Common.Services;
+using Common.Sync.Hub;
 using Contracts.Process;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Process.Data;
 using Process.Hubs;
 using Process.Models;
-using Sync.Hub;
 
 namespace Process.Services;
 public class PackageService : ProcessSyncService<Package, PackageHub, AppDbContext>

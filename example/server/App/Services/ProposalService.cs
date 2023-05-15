@@ -2,8 +2,8 @@ using App.Data;
 using App.Hubs;
 using App.Models;
 using Common.Services;
+using Common.Sync.Hub;
 using Microsoft.AspNetCore.SignalR;
-using Sync.Hub;
 
 namespace App.Services;
 public class ProposalService : ApiSyncService<Proposal, ProposalHub, AppDbContext>

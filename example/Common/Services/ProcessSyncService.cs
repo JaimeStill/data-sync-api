@@ -1,8 +1,8 @@
 using Common.Schema;
+using Common.Sync.Hub;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Sync;
-using Sync.Hub;
 
 namespace Common.Services;
 public abstract class ProcessSyncService<T, H, Db> : ProcessService<T, Db>
