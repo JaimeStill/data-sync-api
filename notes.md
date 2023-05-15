@@ -2,6 +2,8 @@
 
 ## Todo
 
+* Build out resiliency infrastructure to facilitate caching messages in the event of service connection disruptions.
+
 * Build out a web client that holistically demonstrates the power of this infrastructure.
 
 * Build out holistic documentation for the finalized source and example infrastructure.
