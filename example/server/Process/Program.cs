@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using Common.Graph;
 using Common.Middleware;
 using Common.Services;
-using Contracts.Graph;
+using Contracts.App;
 using Microsoft.EntityFrameworkCore;
 using Process.Data;
 using Process.Hubs;

@@ -1,6 +1,5 @@
 using System.CommandLine;
 using Common.Cli;
-using Contracts.Graph;
 using Contracts.Process;
 using SyncCli.Extensions;
 

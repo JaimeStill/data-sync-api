@@ -1,6 +1,5 @@
 using Common.Graph;
 using Contracts.App;
-using Contracts.Graph;
 using Contracts.Process;
 
 namespace SyncCli.Extensions;

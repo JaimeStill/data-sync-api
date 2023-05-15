@@ -2,7 +2,6 @@ using System.CommandLine;
 using Common;
 using Common.Cli;
 using Contracts.App;
-using Contracts.Graph;
 using SyncCli.Extensions;
 
 namespace SyncCli.Commands;

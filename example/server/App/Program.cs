@@ -6,7 +6,7 @@ using App.Sync;
 using Common.Graph;
 using Common.Middleware;
 using Common.Services;
-using Contracts.Graph;
+using Contracts.Process;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

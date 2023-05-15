@@ -14,7 +14,7 @@ The **left terminal** is the example [App API Server](./example/server/App/).
 
 The **center terminal** is a [testing CLI](./example/client/cli/) for interfacing with the example APIs.
 
-The **right terminal** is running the `datasync proposal listen` command from the testing CLI. This command uses a [`ProposalSync`](./example/Contracts/Proposal/ProposalSync.cs) client to listen to the [`ProposalHub`](./example/server/App/Hubs/ProposalHub.cs) broadcasting events through the [`ProposalService`](./example/server/App/Services/ProposalService.cs).
+The **right terminal** is running the `datasync proposal listen` command from the testing CLI. This command uses a [`ProposalSync`](./example/Contracts/App/ProposalSync.cs) client to listen to the [`ProposalHub`](./example/server/App/Hubs/ProposalHub.cs) broadcasting events through the [`ProposalService`](./example/server/App/Services/ProposalService.cs).
 
 ## Customized Process-based Synchronization
 
@@ -37,8 +37,8 @@ Cross-service communication is established through the [Graph](./example/Common/
 > See [Graph API](https://github.com/JaimeStill/decentralized-staffing/blob/main/graph.md) for a detailed explanation of this infrastructure.
 
 * [App - GraphController](./example/server/App/Controllers/GraphController.cs)
-* [AppGraph](./example/Contracts/Graphs/AppGraph.cs)
+* [AppGraph](./example/Contracts/App/AppGraph.cs)
 * [App - appsettings.json](./example/server/App/appsettings.json)
 * [Process - GraphController](./example/server/Process/Controllers/GraphController.cs)
-* [ProcessGraph](./example/Contracts/Graphs/ProcessGraph.cs)
+* [ProcessGraph](./example/Contracts/Process/ProcessGraph.cs)
 * [Process - appsettings.json](./example/server/Process/appsettings.json)

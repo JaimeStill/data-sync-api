@@ -1,6 +1,5 @@
 using Common.Controllers;
 using Contracts.App;
-using Contracts.Graph;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Process.Controllers;
