@@ -43,9 +43,9 @@ Cross-service communication is established through the [Graph](./example/Common/
 * [ProcessGraph](./example/Contracts/Process/ProcessGraph.cs)
 * [Process - appsettings.json](./example/server/Process/appsettings.json)
 
-## Cross-Schema Data Synchronization
+## Service-based Event Reactions
 
-Demonstrates reacting to a cross-service action to synchronize dependent data in a separate data schema. In this example, the `Remove` action triggers the Process Service to cleanup any incomplete `Package` items associated with the removed data.
+Demonstrates leveraging internal API services to react to sync events to synchronize dependend data from an external service. In this example, the `Remove` action triggers the Process Service to cleanup any incomplete `Package` items associated with the removed data.
 
 https://github.com/JaimeStill/data-sync-api/assets/14102723/865e476b-6856-41e7-8500-cd131a3ff556
 
@@ -53,4 +53,4 @@ The **left terminal** is the example [App API Server](./example/server/App).
 
 The **center terminal** is a [testing CLI](./example/client/cli/) for interfacing with the example APIs.
 
-The **right terminal** is the example [Process Service API](./example/server/Process/). It uses its own [`ProposalSync`](./example/server/Process/Sync/ProposalSync.cs) client to add its own [`HandleOnRemove`](./example/server/Process/Sync/PropsalSync.cs#L32). It uses the new [`ExecuteServiceAction`](./src/dotnet/Sync/Client/SyncClient.cs#L79) method in the base `SyncClient` class to retrieve a required service and execute an action against that service. Because `SyncClient` instances are registered as **Singleton** instances, they must interface with **Scoped** services through a custom service scope rather than having these services injected directly.
+The **right terminal** is the example [Process Service API](./example/server/Process/). It uses its own [`ProposalSync`](./example/server/Process/Sync/ProposalSync.cs) client to add its own [`HandleOnRemove`](./example/server/Process/Sync/ProposalSync.cs#L32). It uses the new [`ExecuteServiceAction`](./src/dotnet/Sync/Client/SyncClient.cs#L79) method in the base `SyncClient` class to retrieve a required service and execute an action against that service. Because `SyncClient` instances are registered as **Singleton** instances, they must interface with **Scoped** services through a custom service scope rather than having these services injected directly.
