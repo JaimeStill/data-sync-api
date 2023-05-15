@@ -8,7 +8,7 @@ public class PackageContract : Contract
     public string Status { get; set; } = string.Empty;
     public ProcessState State { get; set; } = ProcessState.Pending;
 
-    public ICollection<ResourceContract>? Resources { get; set; }
+    public ICollection<ResourceContract> Resources { get; set; } = new List<ResourceContract>();
 
     public override string ToString() =>
         $"{Id} - {Name} - {State} - {Status} - {Description}";

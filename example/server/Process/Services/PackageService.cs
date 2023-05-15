@@ -26,8 +26,7 @@ public class PackageService : ProcessSyncService<Package, PackageHub, AppDbConte
     {
         Package? package = await query
             .FirstOrDefaultAsync(x =>
-                x.Resources != null
-                && x.Resources.Any(y =>
+                x.Resources.Any(y =>
                     y.ResourceId == resourceId
                     && y.ResourceType == type
                 )
@@ -102,32 +101,29 @@ public class PackageService : ProcessSyncService<Package, PackageHub, AppDbConte
     {
         ValidationResult result = new();
 
-        if (package.Resources?.Count < 1)
+        if (!package.Resources.Any())
             result.AddMessage("A Package must have at least one Resource associated");
 
         if (package.State != ProcessState.Pending && package.State != ProcessState.Returned)
             result.AddMessage("A Package may only be submitted if it is new or Returned");
 
-        if (package.Resources is not null)
+        foreach (Resource resource in package.Resources)
         {
-            foreach (Resource resource in package.Resources)
-            {
-                bool exists = await db.Resources.AnyAsync(x =>
-                    x.PackageId != package.Id
-                    && x.Package != null
-                    && (               
-                        x.Package.State == ProcessState.Pending
-                        || x.Package.State == ProcessState.Returned
-                    )
-                    && x.ResourceId == resource.ResourceId
-                    && x.ResourceType == resource.ResourceType
-                );
+            bool exists = await db.Resources.AnyAsync(x =>
+                x.PackageId != package.Id
+                && x.Package != null
+                && (
+                    x.Package.State == ProcessState.Pending
+                    || x.Package.State == ProcessState.Returned
+                )
+                && x.ResourceId == resource.ResourceId
+                && x.ResourceType == resource.ResourceType
+            );
 
-                if (exists)
-                {
-                    result.AddMessage("Package contains Resources already assigned to another Package");
-                    break;
-                }
+            if (exists)
+            {
+                result.AddMessage("Package contains Resources already assigned to another Package");
+                break;
             }
         }
 
